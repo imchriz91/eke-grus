@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+<url>
+  <loc>https://www.ekegrus.se/</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/sortiment.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/sortiment.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/stock.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/sortiment.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/galleri.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/galleri.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/gallery.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/galleri.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/faq.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/faq.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/faq.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/faq.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/kontakt.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/kontakt.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/contact.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/kontakt.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/stock.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/sortiment.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/stock.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/sortiment.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/gallery.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/galleri.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/gallery.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/galleri.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/faq.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/faq.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/faq.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/faq.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/contact.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/kontakt.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/contact.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/kontakt.html"/>
+</url>
+
+</urlset>
