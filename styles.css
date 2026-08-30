@@ -176,7 +176,17 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
   background: var(--color-primary-dark);
   color: var(--color-paper);
   font-size: var(--text-small);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%);
+}
+/* The angled bottom edge is a subtle flourish sized as a % of the bar's own
+   height. Below 768px the phone/email/hours text wraps across multiple
+   lines, ballooning that height on a much narrower bar — the same
+   proportion then reads as a steep, broken-looking tilt instead of a
+   deliberate accent. Keep it flat on narrow screens, angled from tablet up
+   where the bar stays short. */
+@media (min-width: 768px) {
+  .contact-strip {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%);
+  }
 }
 .contact-strip .container {
   display: flex;
