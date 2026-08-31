@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFaqAccordion();
   initGalleryLightbox();
   initCalculator();
+  initPdfScrollGuard();
 });
 
 /* ---- Mobile nav toggle ---- */
@@ -178,6 +179,25 @@ function initGalleryLightbox() {
         first.focus();
       }
     }
+  });
+}
+
+/* ---- PDF embed scroll guard: a click "unlocks" the embedded PDF for
+   normal scrolling/zooming; moving the mouse away re-locks it, so a
+   mouse just passing over it while scrolling the page never gets
+   swallowed by the PDF viewer. ---- */
+function initPdfScrollGuard() {
+  document.querySelectorAll(".pdf-card__embed").forEach((wrap) => {
+    const guard = wrap.querySelector(".pdf-card__embed-guard");
+    if (!guard) return;
+
+    guard.addEventListener("click", () => {
+      wrap.classList.add("is-unlocked");
+    });
+
+    wrap.addEventListener("mouseleave", () => {
+      wrap.classList.remove("is-unlocked");
+    });
   });
 }
 

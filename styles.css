@@ -94,14 +94,6 @@ h4 { font-size: var(--text-h4); text-wrap: balance; }
 
 p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
 
-.calc-teaser { color: var(--color-ink-soft); margin-top: var(--space-3); }
-.calc-teaser a {
-  color: var(--color-accent-dark);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-.calc-teaser a:hover { color: var(--color-accent); }
-
 /* Keep the calculator heading clear of the sticky header when jumped to. */
 #calculator { scroll-margin-top: 90px; }
 
@@ -314,7 +306,14 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
   border-color: var(--color-primary-dark);
 }
 
-@media (min-width: 768px) {
+/* NOTE: this breakpoint intentionally does not match the 768px used
+   elsewhere in this file. At 768px the full-width nav row (logo + 5 links
+   + language switch) does not fit and overflows the viewport by ~80px,
+   which clips the SV/EN switch off-screen on iPad-portrait and similar
+   tablet widths. The row layout only has room from ~900px up, so the
+   hamburger menu (already verified to work well down to 375px) is kept
+   through the whole tablet range instead. */
+@media (min-width: 900px) {
   .nav-toggle { display: none; }
   .nav-panel {
     position: static;
@@ -324,11 +323,11 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
     background: transparent;
     border: 0;
     padding: 0;
-    gap: var(--space-6);
+    gap: var(--space-5);
     flex: 1;
   }
   .nav-panel[hidden] { display: flex; }
-  .primary-nav ul { flex-direction: row; gap: var(--space-5); }
+  .primary-nav ul { flex-direction: row; gap: var(--space-4); }
 }
 
 /* ==========================================================================
@@ -606,7 +605,16 @@ section { padding-block: var(--space-8); }
   font-size: var(--text-small);
   color: var(--color-accent-dark);
 }
+.pdf-card__hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--color-ink-soft);
+}
+.pdf-card__hint svg { width: 16px; height: 16px; flex: none; color: var(--color-accent-dark); }
 .pdf-card__embed {
+  position: relative;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -623,6 +631,42 @@ section { padding-block: var(--space-8); }
   padding: var(--space-4);
   font-size: var(--text-small);
   color: var(--color-ink-soft);
+}
+
+/* Sits on top of the PDF iframe so a mouse just passing over it while
+   scrolling the page scrolls the page, not the PDF viewer's own content
+   (an iframe swallows wheel events entirely — the parent page never sees
+   them, so this has to be solved with a covering element, not JS on the
+   scroll event). A click "unlocks" the PDF for normal use; moving the
+   mouse away re-arms the guard so the surprise doesn't come back. */
+.pdf-card__embed-guard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-3);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.pdf-card__embed-guard span {
+  background: var(--color-primary-dark);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-small);
+  padding: 0.45em 0.9em;
+  border-radius: var(--radius);
+  opacity: 0.88;
+  transition: opacity 0.15s ease;
+}
+.pdf-card__embed-guard:hover span,
+.pdf-card__embed-guard:focus-visible span { opacity: 1; }
+.pdf-card__embed.is-unlocked .pdf-card__embed-guard {
+  pointer-events: none;
+  opacity: 0;
 }
 .pdf-card .btn { align-self: flex-start; }
 
