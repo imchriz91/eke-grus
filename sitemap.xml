@@ -10,10 +10,17 @@
 </url>
 
 <url>
-  <loc>https://www.ekegrus.se/sortiment.html</loc>
-  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/sortiment.html"/>
-  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/stock.html"/>
-  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/sortiment.html"/>
+  <loc>https://www.ekegrus.se/prislista.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/prislista.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/price-list.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/prislista.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/material.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/material.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/materials.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/material.html"/>
 </url>
 
 <url>
@@ -45,10 +52,17 @@
 </url>
 
 <url>
-  <loc>https://www.ekegrus.se/en/stock.html</loc>
-  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/sortiment.html"/>
-  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/stock.html"/>
-  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/sortiment.html"/>
+  <loc>https://www.ekegrus.se/en/price-list.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/prislista.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/price-list.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/prislista.html"/>
+</url>
+
+<url>
+  <loc>https://www.ekegrus.se/en/materials.html</loc>
+  <xhtml:link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/material.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/materials.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/material.html"/>
 </url>
 
 <url>

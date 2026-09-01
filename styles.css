@@ -307,13 +307,14 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
 }
 
 /* NOTE: this breakpoint intentionally does not match the 768px used
-   elsewhere in this file. At 768px the full-width nav row (logo + 5 links
-   + language switch) does not fit and overflows the viewport by ~80px,
-   which clips the SV/EN switch off-screen on iPad-portrait and similar
-   tablet widths. The row layout only has room from ~900px up, so the
-   hamburger menu (already verified to work well down to 375px) is kept
-   through the whole tablet range instead. */
-@media (min-width: 900px) {
+   elsewhere in this file. At 768px the full-width nav row (logo + 6 links
+   + language switch) does not fit and overflows the viewport, which clips
+   the SV/EN switch off-screen on iPad-portrait and similar tablet widths.
+   The row layout only has room from ~920px up (measured with all 6 nav
+   items, including "Material"), so the hamburger menu (already verified
+   to work well down to 375px) is kept through the whole tablet range
+   instead, with a safety margin up to 960px. */
+@media (min-width: 960px) {
   .nav-toggle { display: none; }
   .nav-panel {
     position: static;
@@ -364,7 +365,7 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 420px;
+  max-width: 200px;
   margin-inline: auto;
 }
 .rock-cluster span {
@@ -420,6 +421,7 @@ p.lead { font-size: var(--text-lead); color: var(--color-ink-soft); }
 
 @media (min-width: 900px) {
   .hero .container { grid-template-columns: 1.1fr 0.9fr; }
+  .rock-cluster { max-width: 420px; }
 }
 
 /* ==========================================================================
@@ -473,11 +475,13 @@ section { padding-block: var(--space-8); }
 /* ---- About / overview split ---- */
 .about-split {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
+.about-split__content { order: 1; }
 .about-split__stack {
   position: relative;
-  min-height: 220px;
+  min-height: 130px;
+  order: 2;
 }
 .about-split__block {
   position: absolute;
@@ -504,7 +508,9 @@ section { padding-block: var(--space-8); }
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 @media (min-width: 900px) {
-  .about-split { grid-template-columns: 0.85fr 1.15fr; align-items: center; }
+  .about-split { grid-template-columns: 0.85fr 1.15fr; align-items: center; gap: var(--space-6); }
+  .about-split__content { order: 2; }
+  .about-split__stack { min-height: 220px; order: 1; }
 }
 
 /* ---- CTA cards ---- */
@@ -797,6 +803,34 @@ section { padding-block: var(--space-8); }
 }
 @media (min-width: 1100px) {
   .photo-collage { grid-auto-rows: 190px; }
+}
+
+/* ==========================================================================
+   Material grid — close-up swatches of physical samples, each with a name
+   ========================================================================== */
+.material-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4) var(--space-3);
+}
+@media (min-width: 560px) {
+  .material-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 860px) {
+  .material-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 1150px) {
+  .material-grid { grid-template-columns: repeat(5, 1fr); }
+}
+.material-card .gallery-item { aspect-ratio: 640 / 698; }
+.material-card__name {
+  display: block;
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--color-primary-dark);
 }
 
 /* ==========================================================================

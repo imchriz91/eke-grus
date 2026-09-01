@@ -1,6 +1,6 @@
 # Updating the price lists
 
-The "Sortiment" / "Stock" page shows two official price lists as PDFs — a
+The "Prislista" / "Price List" page shows two official price lists as PDFs — a
 standard year-round list and a winter materials list. There's no Google
 Sheet or any other live data source anymore: the page just links to and
 displays these two PDF files directly.
@@ -75,7 +75,7 @@ called Hemsida24, with only 4 pages at these URLs:
 
 For the site's existing Google ranking to carry over, these old addresses
 need to permanently redirect (HTTP 301) to their new equivalents
-(`/`, `/sortiment.html`, `/galleri.html`, `/kontakt.html`) once the new
+(`/`, `/prislista.html`, `/galleri.html`, `/kontakt.html`) once the new
 site goes live at the same domain. **Whether that's possible depends
 entirely on where the new site is hosted** — this repo has no server of
 its own, so redirects have to happen at the hosting layer:

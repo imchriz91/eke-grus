@@ -4,6 +4,10 @@
 # See SETUP.md for why this file exists and what to do on other hosts.
 
 /start-33743048              /                    301
-/produkter-priser-33743068   /sortiment.html      301
+/produkter-priser-33743068   /prislista.html      301
 /galleri-33743073            /galleri.html        301
 /kontakt-33743092            /kontakt.html        301
+
+# Page renamed: Sortiment -> Prislista, Stock -> Price List
+/sortiment.html              /prislista.html      301
+/en/stock.html                /en/price-list.html  301
