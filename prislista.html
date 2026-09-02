@@ -10,6 +10,11 @@
 <meta property="og:description" content="Våra officiella prislistor för bergmaterial, grusmaterial och vintermaterial — ladda ner som PDF.">
 <meta property="og:image" content="assets/logo.jpg">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prislista | Eke Grus AB">
+<meta name="twitter:description" content="Våra officiella prislistor för bergmaterial, grusmaterial och vintermaterial — ladda ner som PDF.">
+<meta name="twitter:image" content="assets/logo.jpg">
+<link rel="canonical" href="https://www.ekegrus.se/prislista.html">
 <link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/prislista.html">
 <link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/price-list.html">
 <link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/prislista.html">
@@ -54,6 +59,7 @@
           <li><a href="index.html">Start</a></li>
           <li><a href="prislista.html" aria-current="page">Prislista</a></li>
           <li><a href="material.html">Material</a></li>
+          <li><a href="hitta-ratt-material.html">Hitta rätt material</a></li>
           <li><a href="galleri.html">Galleri</a></li>
           <li><a href="faq.html">Vanliga frågor</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
@@ -256,5 +262,34 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+// Wait for DOMContentLoaded so script.js's own calculator init (which attaches
+// the #calc-material "change" listener) has already run before we dispatch one.
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+  const wanted = params.get('material');
+  if (!wanted) return;
+
+  const select = document.querySelector('#calc-material');
+  if (!select) return;
+
+  // Matchar på synlig text i dropdownen, t.ex. "Makadam 8/16 mm" mot "Makadam 8/16"
+  const wantedNorm = wanted.trim().toLowerCase();
+  const match = Array.from(select.options).find(opt => {
+    const text = opt.textContent.trim().toLowerCase();
+    return text === wantedNorm || wantedNorm.startsWith(text) || text.startsWith(wantedNorm);
+  });
+
+  if (match) {
+    select.value = match.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  const calcSection = document.getElementById('calculator');
+  if (calcSection) {
+    setTimeout(() => calcSection.scrollIntoView({ behavior: 'smooth' }), 100);
+  }
+});
+</script>
 </body>
 </html>

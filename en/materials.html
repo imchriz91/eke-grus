@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f6f1e7">
-<title>Materials Up Close | Eke Grus AB</title>
-<meta name="description" content="See what our most common materials actually look like — close-up photos of everything from stone dust and sand to crushed stone and mixed crush, shot at Eke Grus AB in Märsta.">
-<meta property="og:title" content="Materials Up Close | Eke Grus AB">
-<meta property="og:description" content="Close-up photos of our most common materials — see grain size and colour before you order.">
+<title>Our Materials | Crushed Rock, Sand & Gravel – Eke Grus AB</title>
+<meta name="description" content="All our materials in one place — click a card to see what it's used for, with a link to the price list. Crushed rock, sand, gravel and soil in Märsta.">
+<meta property="og:title" content="Our Materials | Crushed Rock, Sand & Gravel – Eke Grus AB">
+<meta property="og:description" content="All our materials in one place — click a card to see what it's used for, with a link to the price list.">
 <meta property="og:image" content="../assets/materials/stenmjöl0-4.jpg">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Our Materials | Crushed Rock, Sand & Gravel – Eke Grus AB">
+<meta name="twitter:description" content="All our materials in one place — click a card to see what it's used for, with a link to the price list.">
+<meta name="twitter:image" content="../assets/materials/stenmjöl0-4.jpg">
+<meta name="theme-color" content="#f6f1e7">
+<link rel="canonical" href="https://www.ekegrus.se/en/materials.html">
 <link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/material.html">
 <link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/materials.html">
 <link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/material.html">
@@ -19,6 +24,549 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --bg:#f6f1e7;
+    --surface:#ffffff;
+    --surface-muted:#efe8d9;
+    --text:#2b2621;
+    --text-muted:#6b6258;
+    --accent:#9e3b23;
+    --accent-bg:#f3e3dd;
+    --accent-text:#7a2c1a;
+    --border:#e2d9c7;
+    --radius:12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  main{max-width:1080px;margin:0 auto;padding:32px 20px 60px;}
+
+  .hero{text-align:center;margin-bottom:24px;padding:40px 0 8px;}
+  .hero h1{font-size:28px;font-weight:600;margin:0 0 10px;color:var(--text);}
+  .hero p{color:var(--text-muted);font-size:16px;max-width:560px;margin:0 auto;}
+  .hero .sub{font-size:13px;margin-top:10px;}
+  .hero .sub a{color:var(--accent);}
+
+  /* search + filter chips — sticky together so both stay reachable during a long scroll */
+  .controls{position:sticky;top:0;z-index:10;background:var(--bg);padding-top:14px;border-bottom:1px solid var(--border);}
+
+  .search-row{display:flex;justify-content:center;margin-bottom:12px;}
+  .search-box{position:relative;width:100%;max-width:420px;}
+  .search-box input{
+    width:100%;height:40px;border-radius:999px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);font-size:14px;
+    padding:0 38px 0 16px;outline:none;
+  }
+  .search-box input:focus{border-color:var(--accent);}
+  .search-box input::placeholder{color:var(--text-muted);}
+  .search-box input::-webkit-search-cancel-button{display:none;}
+  .search-clear{
+    position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;border-radius:50%;border:none;background:transparent;
+    color:var(--text-muted);font-size:16px;cursor:pointer;display:none;
+    align-items:center;justify-content:center;
+  }
+  .search-clear.show{display:flex;}
+  .search-clear:hover{background:var(--surface-muted);}
+
+  .filter-bar{
+    padding-bottom:14px;margin-bottom:22px;
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  }
+  .chip{
+    border:1px solid var(--border);background:var(--surface);color:var(--text);
+    font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:500;
+    transition:all .12s ease;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .chip .count{opacity:.75;font-weight:400;}
+
+  .result-count{text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+
+  /* small, image-led cards — click for detail */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;cursor:pointer;padding:0;text-align:left;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08);}
+  .card .thumb{
+    width:100%;aspect-ratio:1/1;background:var(--surface-muted);position:relative;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  }
+  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card .thumb .placeholder{display:none;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);font-size:10px;text-align:center;padding:0 6px;}
+  .card .tap-hint{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+    background:rgba(35,28,20,.62);color:#fff;font-size:11px;font-weight:600;
+    letter-spacing:.02em;padding:5px 10px;border-radius:20px;white-space:nowrap;
+  }
+  .card .label{padding:8px 10px 10px;}
+  .card .name{font-size:12.5px;font-weight:600;margin:0;line-height:1.3;}
+  .card .frac{font-size:11px;color:var(--text-muted);margin:1px 0 0;}
+
+  .empty{display:none;text-align:center;color:var(--text-muted);font-size:14px;padding:40px 0;}
+  .empty.show{display:block;}
+
+  .note{font-size:13px;color:var(--text-muted);margin-top:32px;text-align:center;}
+  .note a{color:var(--accent);}
+
+  /* modal */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(35,28,20,.55);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    z-index:100;opacity:0;visibility:hidden;transition:opacity .15s ease;
+  }
+  .modal-backdrop.open{opacity:1;visibility:visible;}
+  .modal{
+    background:var(--surface);border-radius:16px;max-width:480px;width:100%;
+    max-height:88vh;overflow-y:auto;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--border);font-size:18px;line-height:1;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;color:var(--text);
+  }
+  .modal-close:hover{border-color:var(--accent);}
+  .modal-img{width:100%;aspect-ratio:380/414;max-height:min(34vh,320px);background:var(--surface-muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+  .modal-img img{width:100%;height:100%;object-fit:contain;display:block;}
+  .modal-img .placeholder{display:none;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;}
+  .modal-body{padding:18px 24px 0;}
+  .modal-body h2{font-size:22px;margin:0 0 2px;}
+  .modal-body .frac{color:var(--text-muted);font-size:14px;margin:0 0 10px;}
+  .modal-body .desc{font-size:15px;color:var(--text);margin:0 0 16px;}
+  .modal-actions{
+    display:flex;gap:10px;flex-wrap:wrap;
+    position:sticky;bottom:0;background:var(--surface);
+    padding:12px 0 20px;box-shadow:0 -8px 12px -6px rgba(35,28,20,.08);
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--radius);
+    font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--border);
+  }
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn-secondary{background:var(--surface);color:var(--text);}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Eke Grus AB — Materials",
+  "url": "https://www.ekegrus.se/en/materials.html",
+  "numberOfItems": 35,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Stone Dust 0/4 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "The finest crushed material we carry. Used as bedding sand under pavers and setts, as jointing material, and as a wearing course on riding arenas and pétanque courts. Compacts hard for an even, stable surface.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/stenmjöl0-4.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Stone Dust 0/8 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A slightly coarser stone dust. Used much like the 0/4 grade — as a base for pavers, paths and driveways — but with better load-bearing capacity and drainage under heavier traffic.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/stenmjöl0-8.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 2/5 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A fine, washed crushed product free of fines. Used for winter grit and as a draining material wherever a finer grade is preferred.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 4/8 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A draining crushed stone. Used for winter grit, gravel paths, foundations and driveways, as well as a decorative surface layer.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam4-8.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 8/11 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "Used for drainage, gravel paths and yards. Gives good water permeability with a stable, angular structure.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam8-11.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 8/16 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "One of our most popular drainage grades. Used around foundations, in drainage trenches and under edging stones. Easy to shovel by hand.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam8-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 11/16 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "Similar use to the 8/16 grade — drainage and load-bearing/draining layers wherever a slightly coarser grade is preferred.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam11-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 16/22 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A coarser draining crushed stone. Used in drainage layers, as a capillary break, and on larger groundwork projects.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam16-22.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 16/32 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "Very commonly used for drainage, as a bedding layer for infiltration systems, and as a base to pour concrete on. Also used behind retaining walls as draining backfill.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam16-32.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Stone 32/63 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A coarse crushed stone for heavy groundwork, coarse drainage, stone-filled drainage boxes and capillary-break layers wherever large voids and fast water flow-through are needed.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "Product",
+        "name": "Washed Crushed Stone 16/32 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "Clean, washed crushed stone free of stone dust — gives extra-good drainage. Used around drainage pipes, in stone-filled drainage boxes, and on projects with high cleanliness requirements.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "Product",
+        "name": "Coarse Crushed Rock 65/150 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A coarse crushed product, larger than our standard crushed stone. Used as a reinforcement layer under heavy-duty surfaces and for footings under retaining walls, where stability and good drainage are essential.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "Product",
+        "name": "Unsorted Rock",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "Unsorted blasted and crushed rock in mixed sizes. Used mainly as fill for building up and levelling ground where an exact grade isn’t required.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "Product",
+        "name": "Pipe-Bedding Gravel, Coarse 0/8 mm",
+        "category": "Foundations, Drainage & Pipes",
+        "description": "A fine-grained natural gravel intended specifically for backfilling around pipes, drains and cables. Gives an even, well-compacted, protective bed.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/rörgrav0-8stritt.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "Product",
+        "name": "Gravel Fill 0/100 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "A coarse, unsorted natural gravel. Used as general fill for building up and levelling large volumes of ground — for example ahead of road building or filling a plot.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Gravel 0/20 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "Crushed natural gravel. Used as a base material for garage driveways, paving and road building — an easy-to-work alternative to a coarser base layer.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/krossgrus0-20.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "Product",
+        "name": "Natural Pea Gravel 8/16 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "Naturally rounded gravel, not crushed. Used for garden paths, driveways, and as a draining, decorative layer around foundations. Comfortable underfoot.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/natursingel8-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Natural Stone 4/8 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "A fine grade of crushed natural gravel. Used for winter grit and as a decorative surface layer, as well as on smaller groundwork jobs.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Natural Stone 8/11 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "Crushed natural gravel for garden paths and driving surfaces, and as draining fill — gives a stable, reasonably even surface.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Natural Stone 8/16 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "A versatile grade for garden paths, driving surfaces and driveways, and as a draining fill material. Handles light traffic and wear well.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Natural Stone 16/38 mm",
+        "category": "Garden, Soil & Decorative",
+        "description": "A coarser crushed natural gravel. Used for heavier groundwork and for building up driving surfaces that need to handle higher loads.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/krossad-natur16-38.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "Product",
+        "name": "Natural Stone",
+        "category": "Garden, Soil & Decorative",
+        "description": "Unsorted, mixed natural stone. Used as decorative stone and for dry-stone and retaining walls where the stone’s natural shape and variation is exactly what’s wanted.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+        "@type": "Product",
+        "name": "Landscaping Soil",
+        "category": "Garden, Soil & Decorative",
+        "description": "A mineral-based soil with lower organic content that holds its shape over time. Used when laying new lawns, flower beds and green areas as a base for planting.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+        "@type": "Product",
+        "name": "Fill Soil",
+        "category": "Garden, Soil & Decorative",
+        "description": "A simpler, cheaper soil used mainly to fill and level large volumes of ground — for example ahead of a foundation or road.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/11 mm",
+        "category": "Driveways & Roads",
+        "description": "A finer mixed crush. Used as a wearing course on gravel roads and yards — gives an even, drivable surface.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-11.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/16 mm",
+        "category": "Driveways & Roads",
+        "description": "Used as a wearing course on top of a base layer — on gravel roads, paths and driveways. Often called road gravel.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush (Base Layer) 0/32 mm",
+        "category": "Driveways & Roads",
+        "description": "Our standard material for base layers under roads, driveways and parking areas. The angular grains lock together when compacted, giving high load-bearing strength.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-32.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/63 mm",
+        "category": "Driveways & Roads",
+        "description": "A reinforcement layer laid beneath the base layer to give a stable foundation for roads and parking areas, especially on soft or uneven ground.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-63.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/90 mm",
+        "category": "Driveways & Roads",
+        "description": "A coarser reinforcement layer for heavier loads — roads, larger areas, and building up ground over a weak subgrade.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/125 mm",
+        "category": "Driveways & Roads",
+        "description": "A coarse reinforcement layer for large groundworks and road structures where a deep build-up or heavy loading is involved.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "item": {
+        "@type": "Product",
+        "name": "Mixed Crush 0/150 mm",
+        "category": "Driveways & Roads",
+        "description": "Our coarsest mixed-crush grade. Used as a base layer in constructions with a thick build-up — road building and parking areas — often combined with finer material closer to the surface.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Asphalt 0/16 mm",
+        "category": "Driveways & Roads",
+        "description": "Recycled crushed asphalt. Used as a wearing course on gravel roads and as a base layer for driveways and parking areas — a more eco-friendly, cheaper alternative to crushed rock.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/asfaltskross0-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "item": {
+        "@type": "Product",
+        "name": "Crushed Asphalt 0/45 mm",
+        "category": "Driveways & Roads",
+        "description": "A coarser recycled asphalt. Used as a reinforcement and base layer for roads and parking areas — a cost-effective alternative to newly quarried crushed rock.",
+        "url": "https://www.ekegrus.se/en/materials.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "item": {
+        "@type": "Product",
+        "name": "Masonry Sand 0/4 mm",
+        "category": "Masonry & Mortar",
+        "description": "Finely screened natural sand, free of larger stones and impurities. Mixed with cement, lime and water to make masonry and plastering mortar.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/mursand0-4.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "item": {
+        "@type": "Product",
+        "name": "Plastering Sand 0/2 mm",
+        "category": "Masonry & Mortar",
+        "description": "An extra-fine natural sand for plastering mortar where a smooth, fine finish is needed. Gives even binding and an attractive result on rendered façades.",
+        "url": "https://www.ekegrus.se/en/materials.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/putssand0-4.webp"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,6 +602,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="price-list.html">Price List</a></li>
           <li><a href="materials.html" aria-current="page">Materials</a></li>
+          <li><a href="find-material.html">Find Material</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -68,158 +617,27 @@
 </header>
 
 <main id="main">
-  <section style="padding-block: var(--space-7) var(--space-5);">
-    <div class="container">
-      <span class="hero__eyebrow">Materials</span>
-      <h1 style="font-size: var(--text-h2);">Our materials up close</h1>
-      <p class="lead">Names and grading codes don't always tell you much — here's what the material actually looks like. Every photo is a real sample shot at our yard in Märsta, not a stock photo. Click any photo to view it full-screen.</p>
-    </div>
-  </section>
+  <div class="hero">
+    <h1>Our Materials</h1>
+    <p>Click a card to see what the material is used for, with a link to the current price.</p>
+    <p class="sub">Not sure which one you need? Try our <a href="find-material.html">guide</a> instead.</p>
+  </div>
 
-  <section style="padding-top: 0;">
-    <div class="container reveal">
-      <div class="material-grid">
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/stenmjöl0-4.webp">
-            <img src="../assets/materials-thumbs/stenmjöl0-4.webp" alt="Stone Dust 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Stone Dust 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/stenmjöl0-8.webp">
-            <img src="../assets/materials-thumbs/stenmjöl0-8.webp" alt="Stone Dust 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Stone Dust 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/samkross0-11.webp">
-            <img src="../assets/materials-thumbs/samkross0-11.webp" alt="Mixed Crush 0/11" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Mixed Crush 0/11</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/samkross0-16.webp">
-            <img src="../assets/materials-thumbs/samkross0-16.webp" alt="Mixed Crush 0/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Mixed Crush 0/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/samkross0-32.webp">
-            <img src="../assets/materials-thumbs/samkross0-32.webp" alt="Mixed Crush 0/32" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Mixed Crush 0/32</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/samkross0-63.webp">
-            <img src="../assets/materials-thumbs/samkross0-63.webp" alt="Mixed Crush 0/63" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Mixed Crush 0/63</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam2-4.webp">
-            <img src="../assets/materials-thumbs/makadam2-4.webp" alt="Crushed Stone 2/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 2/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam4-8.webp">
-            <img src="../assets/materials-thumbs/makadam4-8.webp" alt="Crushed Stone 4/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 4/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam8-11.webp">
-            <img src="../assets/materials-thumbs/makadam8-11.webp" alt="Crushed Stone 8/11" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 8/11</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam8-16.webp">
-            <img src="../assets/materials-thumbs/makadam8-16.webp" alt="Crushed Stone 8/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 8/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam11-16.webp">
-            <img src="../assets/materials-thumbs/makadam11-16.webp" alt="Crushed Stone 11/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 11/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam16-22.webp">
-            <img src="../assets/materials-thumbs/makadam16-22.webp" alt="Crushed Stone 16/22" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 16/22</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/makadam16-32.webp">
-            <img src="../assets/materials-thumbs/makadam16-32.webp" alt="Crushed Stone 16/32" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Stone 16/32</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/asfaltskross0-16.webp">
-            <img src="../assets/materials-thumbs/asfaltskross0-16.webp" alt="Crushed Asphalt 0/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Asphalt 0/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/mursand0-4.webp">
-            <img src="../assets/materials-thumbs/mursand0-4.webp" alt="Masonry Sand 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Masonry Sand 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/putssand0-4.webp">
-            <img src="../assets/materials-thumbs/putssand0-4.webp" alt="Plastering Sand 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Plastering Sand 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/rörgravsgrus0-8.webp">
-            <img src="../assets/materials-thumbs/rörgravsgrus0-8.webp" alt="Pipe-Bedding Gravel 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Pipe-Bedding Gravel 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/rörgrav0-8stritt.webp">
-            <img src="../assets/materials-thumbs/rörgrav0-8stritt.webp" alt="Pipe-Bedding Gravel, Coarse 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Pipe-Bedding Gravel, Coarse 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/natursingel8-16.webp">
-            <img src="../assets/materials-thumbs/natursingel8-16.webp" alt="Natural Pea Gravel 8/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Natural Pea Gravel 8/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/krossgrus0-20.webp">
-            <img src="../assets/materials-thumbs/krossgrus0-20.webp" alt="Crushed Gravel 0/20" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Gravel 0/20</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="../assets/materials/krossad-natur16-38.webp">
-            <img src="../assets/materials-thumbs/krossad-natur16-38.webp" alt="Crushed Natural Stone 16/38" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Crushed Natural Stone 16/38</span>
-        </div>
-      </div>
-
-      <p style="margin-top: var(--space-5); color: var(--color-ink-soft);">Colour and grain size can vary slightly between deliveries. Not sure which material suits your project? Check our <a href="faq.html">FAQ</a> or get in touch and we'll point you in the right direction.</p>
-
-      <div class="callout" style="margin-top: var(--space-6);">
-        <div>
-          <h3 class="mt-0">Ready to order?</h3>
-          <p>See current prices and download our price lists as PDF.</p>
-        </div>
-        <div>
-          <a class="btn btn-accent" href="price-list.html">To the price list →</a>
-        </div>
+  <div class="controls">
+    <div class="search-row">
+      <div class="search-box">
+        <input type="search" id="search-input" placeholder="Search e.g. crushed stone, mixed crush, driveway, wearing course." aria-label="Search materials">
+        <button class="search-clear" id="search-clear" aria-label="Clear search">&times;</button>
       </div>
     </div>
-  </section>
+    <div class="filter-bar" id="filter-bar"></div>
+  </div>
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">No products in this category right now.</p>
+
+  <p class="note">Prices and current availability are always confirmed when you order — call <a href="tel:+46702124451">070-212 44 51</a> or email <a href="mailto:ekegrus@telia.com">ekegrus@telia.com</a>.</p>
 </main>
 
 <footer class="site-footer">
@@ -248,6 +666,234 @@
   </div>
 </footer>
 
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-img" id="modal-img"></div>
+    <div class="modal-body">
+      <h2 id="modal-title"></h2>
+      <p class="frac" id="modal-frac"></p>
+      <p class="desc" id="modal-desc"></p>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+</div>
+
 <script src="../script.js"></script>
+<script>
+/* ============================================================
+   CATEGORIES — same four as in the guide (find-material.html)
+   ============================================================ */
+const CATS = [
+  { id:'grund', name:'Foundations, Drainage & Pipes' },
+  { id:'tradgard', name:'Garden, Soil & Decorative' },
+  { id:'vag', name:'Driveways & Roads' },
+  { id:'mur', name:'Masonry & Mortar' },
+];
+
+/* ============================================================
+   PRODUCTS — all 35 rows from the price list.
+   img: path to the existing photos in assets/materials-thumbs/.
+   calc: the Swedish name+size exactly as it appears in the price
+   list's calculator dropdown (our price lists are Swedish-only),
+   used to build the deep link into the calculator.
+   desc: full description shown in the modal.
+   ============================================================ */
+const PRODUCTS = [
+  { id:'stenmjol04', name:'Stone Dust', fraction:'0/4 mm', cat:'grund', calc:'Stenmjöl 0/4', img:'../assets/materials-thumbs/stenmjöl0-4.webp',
+    desc:'The finest crushed material we carry. Used as bedding sand under pavers and setts, as jointing material, and as a wearing course on riding arenas and pétanque courts. Compacts hard for an even, stable surface.' },
+  { id:'stenmjol08', name:'Stone Dust', fraction:'0/8 mm', cat:'grund', calc:'Stenmjöl 0/8', img:'../assets/materials-thumbs/stenmjöl0-8.webp',
+    desc:'A slightly coarser stone dust. Used much like the 0/4 grade — as a base for pavers, paths and driveways — but with better load-bearing capacity and drainage under heavier traffic.' },
+  { id:'makadam25', name:'Crushed Stone', fraction:'2/5 mm', cat:'grund', calc:'Makadam 2/5', img:null,
+    desc:'A fine, washed crushed product free of fines. Used for winter grit and as a draining material wherever a finer grade is preferred.' },
+  { id:'makadam48', name:'Crushed Stone', fraction:'4/8 mm', cat:'grund', calc:'Makadam 4/8', img:'../assets/materials-thumbs/makadam4-8.webp',
+    desc:'A draining crushed stone. Used for winter grit, gravel paths, foundations and driveways, as well as a decorative surface layer.' },
+  { id:'makadam811', name:'Crushed Stone', fraction:'8/11 mm', cat:'grund', calc:'Makadam 8/11', img:'../assets/materials-thumbs/makadam8-11.webp',
+    desc:'Used for drainage, gravel paths and yards. Gives good water permeability with a stable, angular structure.' },
+  { id:'makadam816', name:'Crushed Stone', fraction:'8/16 mm', cat:'grund', calc:'Makadam 8/16', img:'../assets/materials-thumbs/makadam8-16.webp',
+    desc:'One of our most popular drainage grades. Used around foundations, in drainage trenches and under edging stones. Easy to shovel by hand.' },
+  { id:'makadam1116', name:'Crushed Stone', fraction:'11/16 mm', cat:'grund', calc:'Makadam 11/16', img:'../assets/materials-thumbs/makadam11-16.webp',
+    desc:'Similar use to the 8/16 grade — drainage and load-bearing/draining layers wherever a slightly coarser grade is preferred.' },
+  { id:'makadam1622', name:'Crushed Stone', fraction:'16/22 mm', cat:'grund', calc:'Makadam 16/22', img:'../assets/materials-thumbs/makadam16-22.webp',
+    desc:'A coarser draining crushed stone. Used in drainage layers, as a capillary break, and on larger groundwork projects.' },
+  { id:'makadam1632', name:'Crushed Stone', fraction:'16/32 mm', cat:'grund', calc:'Makadam 16/32', img:'../assets/materials-thumbs/makadam16-32.webp',
+    desc:'Very commonly used for drainage, as a bedding layer for infiltration systems, and as a base to pour concrete on. Also used behind retaining walls as draining backfill.' },
+  { id:'makadam3263', name:'Crushed Stone', fraction:'32/63 mm', cat:'grund', calc:'Makadam 32/63', img:null,
+    desc:'A coarse crushed stone for heavy groundwork, coarse drainage, stone-filled drainage boxes and capillary-break layers wherever large voids and fast water flow-through are needed.' },
+  { id:'tvattadmakadam1632', name:'Washed Crushed Stone', fraction:'16/32 mm', cat:'grund', calc:'Tvättad makadam 16/32', img:null,
+    desc:'Clean, washed crushed stone free of stone dust — gives extra-good drainage. Used around drainage pipes, in stone-filled drainage boxes, and on projects with high cleanliness requirements.' },
+  { id:'skarv', name:'Coarse Crushed Rock', fraction:'65/150 mm', cat:'grund', calc:'Skärv 65/150', img:null,
+    desc:'A coarse crushed product, larger than our standard crushed stone. Used as a reinforcement layer under heavy-duty surfaces and for footings under retaining walls, where stability and good drainage are essential.' },
+  { id:'berg', name:'Unsorted Rock', fraction:'–', cat:'grund', calc:'Berg', img:null,
+    desc:'Unsorted blasted and crushed rock in mixed sizes. Used mainly as fill for building up and levelling ground where an exact grade isn’t required.' },
+  { id:'rorgravsgrus', name:'Pipe-Bedding Gravel, Coarse', fraction:'0/8 mm', cat:'grund', calc:'Rörgravsgrus, stritt 0/8', img:'../assets/materials-thumbs/rörgrav0-8stritt.webp',
+    desc:'A fine-grained natural gravel intended specifically for backfilling around pipes, drains and cables. Gives an even, well-compacted, protective bed.' },
+
+  { id:'grusfyllning', name:'Gravel Fill', fraction:'0/100 mm', cat:'tradgard', calc:'Grusfyllning 0/100', img:null,
+    desc:'A coarse, unsorted natural gravel. Used as general fill for building up and levelling large volumes of ground — for example ahead of road building or filling a plot.' },
+  { id:'krossgrus020', name:'Crushed Gravel', fraction:'0/20 mm', cat:'tradgard', calc:'Krossgrus 0/20', img:'../assets/materials-thumbs/krossgrus0-20.webp',
+    desc:'Crushed natural gravel. Used as a base material for garage driveways, paving and road building — an easy-to-work alternative to a coarser base layer.' },
+  { id:'natursingel', name:'Natural Pea Gravel', fraction:'8/16 mm', cat:'tradgard', calc:'Natursingel 8/16', img:'../assets/materials-thumbs/natursingel8-16.webp',
+    desc:'Naturally rounded gravel, not crushed. Used for garden paths, driveways, and as a draining, decorative layer around foundations. Comfortable underfoot.' },
+  { id:'krossatnatur48', name:'Crushed Natural Stone', fraction:'4/8 mm', cat:'tradgard', calc:'Krossat natur 4/8', img:null,
+    desc:'A fine grade of crushed natural gravel. Used for winter grit and as a decorative surface layer, as well as on smaller groundwork jobs.' },
+  { id:'krossatnatur811', name:'Crushed Natural Stone', fraction:'8/11 mm', cat:'tradgard', calc:'Krossat natur 8/11', img:null,
+    desc:'Crushed natural gravel for garden paths and driving surfaces, and as draining fill — gives a stable, reasonably even surface.' },
+  { id:'krossatnatur816', name:'Crushed Natural Stone', fraction:'8/16 mm', cat:'tradgard', calc:'Krossat natur 8/16', img:null,
+    desc:'A versatile grade for garden paths, driving surfaces and driveways, and as a draining fill material. Handles light traffic and wear well.' },
+  { id:'krossatnatur1638', name:'Crushed Natural Stone', fraction:'16/38 mm', cat:'tradgard', calc:'Krossat natur 16/38', img:'../assets/materials-thumbs/krossad-natur16-38.webp',
+    desc:'A coarser crushed natural gravel. Used for heavier groundwork and for building up driving surfaces that need to handle higher loads.' },
+  { id:'natursten', name:'Natural Stone', fraction:'–', cat:'tradgard', calc:'Natursten', img:null,
+    desc:'Unsorted, mixed natural stone. Used as decorative stone and for dry-stone and retaining walls where the stone’s natural shape and variation is exactly what’s wanted.' },
+  { id:'anlaggningsjord', name:'Landscaping Soil', fraction:'–', cat:'tradgard', calc:'Anläggningsjord', img:null,
+    desc:'A mineral-based soil with lower organic content that holds its shape over time. Used when laying new lawns, flower beds and green areas as a base for planting.' },
+  { id:'fyllnadsjord', name:'Fill Soil', fraction:'–', cat:'tradgard', calc:'Fyllnadsjord', img:null,
+    desc:'A simpler, cheaper soil used mainly to fill and level large volumes of ground — for example ahead of a foundation or road.' },
+
+  { id:'samkross011', name:'Mixed Crush', fraction:'0/11 mm', cat:'vag', calc:'Samkross 0/11', img:'../assets/materials-thumbs/samkross0-11.webp',
+    desc:'A finer mixed crush. Used as a wearing course on gravel roads and yards — gives an even, drivable surface.' },
+  { id:'samkross016', name:'Mixed Crush', fraction:'0/16 mm', cat:'vag', calc:'Samkross 0/16', img:'../assets/materials-thumbs/samkross0-16.webp',
+    desc:'Used as a wearing course on top of a base layer — on gravel roads, paths and driveways. Often called road gravel.' },
+  { id:'samkross032', name:'Mixed Crush (Base Layer)', fraction:'0/32 mm', cat:'vag', calc:'Samkross (Bärlager) 0/32', img:'../assets/materials-thumbs/samkross0-32.webp',
+    desc:'Our standard material for base layers under roads, driveways and parking areas. The angular grains lock together when compacted, giving high load-bearing strength.' },
+  { id:'samkross063', name:'Mixed Crush', fraction:'0/63 mm', cat:'vag', calc:'Samkross 0/63', img:'../assets/materials-thumbs/samkross0-63.webp',
+    desc:'A reinforcement layer laid beneath the base layer to give a stable foundation for roads and parking areas, especially on soft or uneven ground.' },
+  { id:'samkross090', name:'Mixed Crush', fraction:'0/90 mm', cat:'vag', calc:'Samkross 0/90', img:null,
+    desc:'A coarser reinforcement layer for heavier loads — roads, larger areas, and building up ground over a weak subgrade.' },
+  { id:'samkross0125', name:'Mixed Crush', fraction:'0/125 mm', cat:'vag', calc:'Samkross 0/125', img:null,
+    desc:'A coarse reinforcement layer for large groundworks and road structures where a deep build-up or heavy loading is involved.' },
+  { id:'samkross0150', name:'Mixed Crush', fraction:'0/150 mm', cat:'vag', calc:'Samkross 0/150', img:null,
+    desc:'Our coarsest mixed-crush grade. Used as a base layer in constructions with a thick build-up — road building and parking areas — often combined with finer material closer to the surface.' },
+  { id:'asfaltskross016', name:'Crushed Asphalt', fraction:'0/16 mm', cat:'vag', calc:'Asfaltskross 0/16', img:'../assets/materials-thumbs/asfaltskross0-16.webp',
+    desc:'Recycled crushed asphalt. Used as a wearing course on gravel roads and as a base layer for driveways and parking areas — a more eco-friendly, cheaper alternative to crushed rock.' },
+  { id:'asfaltskross045', name:'Crushed Asphalt', fraction:'0/45 mm', cat:'vag', calc:'Asfaltskross 0/45', img:null,
+    desc:'A coarser recycled asphalt. Used as a reinforcement and base layer for roads and parking areas — a cost-effective alternative to newly quarried crushed rock.' },
+
+  { id:'mursand', name:'Masonry Sand', fraction:'0/4 mm', cat:'mur', calc:'Mursand 0/4', img:'../assets/materials-thumbs/mursand0-4.webp',
+    desc:'Finely screened natural sand, free of larger stones and impurities. Mixed with cement, lime and water to make masonry and plastering mortar.' },
+  { id:'putssand', name:'Plastering Sand', fraction:'0/2 mm', cat:'mur', calc:'Putssand 0/2', img:'../assets/materials-thumbs/putssand0-4.webp',
+    desc:'An extra-fine natural sand for plastering mortar where a smooth, fine finish is needed. Gives even binding and an attractive result on rendered façades.' },
+];
+
+/* ============================================================ */
+
+const $ = id => document.getElementById(id);
+let activeCat = 'alla';
+let searchQuery = '';
+let lastFocused = null;
+
+function searchableText(p){
+  const cat = CATS.find(c => c.id === p.cat);
+  return [p.name, p.fraction, p.desc, cat ? cat.name : ''].join(' ').toLowerCase();
+}
+
+function matchesSearch(p, query){
+  if(!query) return true;
+  const haystack = searchableText(p);
+  return query.trim().toLowerCase().split(/\s+/).every(word => haystack.includes(word));
+}
+
+function renderChips(){
+  const all = [{ id:'alla', name:'All' }, ...CATS];
+  $('filter-bar').innerHTML = all.map(c => {
+    const count = c.id === 'alla'
+      ? PRODUCTS.length
+      : PRODUCTS.filter(p => p.cat === c.id).length;
+    return `<button class="chip${c.id === activeCat ? ' active' : ''}" data-cat="${c.id}">${c.name} <span class="count">${count}</span></button>`;
+  }).join('');
+  $('filter-bar').querySelectorAll('.chip').forEach(el =>
+    el.addEventListener('click', () => { activeCat = el.dataset.cat; renderChips(); renderGrid(); }));
+}
+
+function thumbHtml(p, big){
+  const wrap = big ? 'modal-img' : 'thumb';
+  const iconSize = big ? 22 : 16;
+  const label = big ? 'Photo coming soon' : 'Image unavailable';
+  const hint = big ? '' : '<span class="tap-hint">Click here</span>';
+  if(p.img){
+    return `<div class="${wrap}">
+      <img src="${p.img}" alt="${p.name} ${p.fraction}" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="placeholder"><span>&#128247;</span><span>${label}</span></div>
+      ${hint}
+    </div>`;
+  }
+  return `<div class="${wrap}"><div class="placeholder" style="display:flex;"><span style="font-size:${iconSize}px;">&#128247;</span><span>${label}</span></div>${hint}</div>`;
+}
+
+function renderGrid(){
+  const list = PRODUCTS
+    .filter(p => activeCat === 'alla' || p.cat === activeCat)
+    .filter(p => matchesSearch(p, searchQuery));
+
+  $('result-count').textContent = list.length + (list.length === 1 ? ' product' : ' products');
+  $('empty').textContent = searchQuery
+    ? 'No matches. Try another search term, e.g. foundation, driveway, masonry or garden.'
+    : 'No products in this category right now.';
+  $('empty').classList.toggle('show', list.length === 0);
+
+  $('grid').innerHTML = list.map(p => `
+    <button class="card" data-id="${p.id}">
+      ${thumbHtml(p, false)}
+      <div class="label">
+        <p class="name">${p.name}</p>
+        <p class="frac">${p.fraction}</p>
+      </div>
+    </button>`).join('');
+  $('grid').querySelectorAll('.card').forEach(el =>
+    el.addEventListener('click', () => openModal(el.dataset.id, el)));
+}
+
+function openModal(id, triggerEl){
+  const p = PRODUCTS.find(x => x.id === id);
+  lastFocused = triggerEl || document.activeElement;
+
+  $('modal-img').outerHTML = thumbHtml(p, true).replace('class="modal-img"', 'class="modal-img" id="modal-img"');
+  $('modal-title').textContent = p.name;
+  $('modal-frac').textContent = p.fraction === '–' ? 'Unsorted' : 'Size ' + p.fraction;
+  $('modal-desc').textContent = p.desc;
+
+  const calcUrl = 'price-list.html?material=' + encodeURIComponent(p.calc) + '#calculator';
+  $('modal-actions').innerHTML = `
+    <a class="btn btn-primary" href="price-list.html">See price in the price list</a>
+    <a class="btn btn-secondary" href="${calcUrl}">Calculate quantity</a>
+  `;
+
+  $('modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  $('modal-close').focus();
+}
+
+function closeModal(){
+  $('modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastFocused){ lastFocused.focus(); }
+}
+
+$('modal-close').addEventListener('click', closeModal);
+$('modal-backdrop').addEventListener('click', e => { if(e.target.id === 'modal-backdrop'){ closeModal(); } });
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    if($('modal-backdrop').classList.contains('open')){ closeModal(); }
+    else if(document.activeElement === $('search-input') && searchQuery){ $('search-input').value=''; searchQuery=''; renderGrid(); $('search-clear').classList.remove('show'); }
+  }
+});
+
+$('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  $('search-clear').classList.toggle('show', searchQuery.length > 0);
+  renderGrid();
+});
+$('search-clear').addEventListener('click', () => {
+  $('search-input').value = '';
+  searchQuery = '';
+  $('search-clear').classList.remove('show');
+  renderGrid();
+  $('search-input').focus();
+});
+
+renderChips();
+renderGrid();
+</script>
 </body>
 </html>

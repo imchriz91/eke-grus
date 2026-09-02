@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hitta rätt material | Eke Grus AB</title>
+<meta name="description" content="Osäker på vilket bergmaterial, grus eller jord som passar ditt projekt? Bläddra i kategorier eller svara på två snabba frågor så hjälper vi dig hitta rätt.">
+<meta property="og:title" content="Hitta rätt material | Eke Grus AB">
+<meta property="og:description" content="Osäker på vilket bergmaterial, grus eller jord som passar ditt projekt? Vi hjälper dig hitta rätt.">
+<meta property="og:image" content="assets/logo.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hitta rätt material | Eke Grus AB">
+<meta name="twitter:description" content="Osäker på vilket bergmaterial, grus eller jord som passar ditt projekt? Vi hjälper dig hitta rätt.">
+<meta name="twitter:image" content="assets/logo.jpg">
+<meta name="theme-color" content="#f6f1e7">
+<link rel="canonical" href="https://www.ekegrus.se/hitta-ratt-material.html">
+<link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/hitta-ratt-material.html">
+<link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/find-material.html">
+<link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/hitta-ratt-material.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 90,90 10,90' fill='none' stroke='%23C1440E' stroke-width='8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  :root{
+    --bg:#f6f1e7;
+    --surface:#ffffff;
+    --surface-muted:#efe8d9;
+    --text:#2b2621;
+    --text-muted:#6b6258;
+    --accent:#9e3b23;      /* juster till er exakta logofärg */
+    --accent-bg:#f3e3dd;
+    --accent-text:#7a2c1a;
+    --border:#e2d9c7;
+    --radius:12px;
+    --success-bg:#e7f0e0;
+    --success-text:#3d6b2c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  /* ============ BYT UT DENNA SEKTION MOT ER BEFINTLIGA HEADER/NAV-INCLUDE ============ */
+  header.site-placeholder{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    padding:14px 20px;font-size:14px;color:var(--text-muted);text-align:center;
+  }
+  /* ==================================================================================== */
+
+  main{max-width:900px;margin:0 auto;padding:32px 20px 60px;}
+
+  .hero{text-align:center;margin-bottom:32px;padding:40px 0 8px;}
+  .hero h1{font-size:28px;font-weight:600;margin:0 0 10px;color:var(--text);}
+  .hero p{color:var(--text-muted);font-size:16px;max-width:520px;margin:0 auto;}
+
+  .mode-toggle{
+    display:flex;gap:6px;max-width:360px;margin:0 auto 28px;
+    background:var(--surface-muted);padding:4px;border-radius:var(--radius);
+  }
+  .mode-toggle button{
+    flex:1;border:none;background:transparent;padding:10px 14px;border-radius:8px;
+    font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .15s ease;
+  }
+  .mode-toggle button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.06);}
+
+  /* back button — shown on every step that has a previous step to return to */
+  .back-row{margin-bottom:10px;}
+  .back-row:empty{margin-bottom:0;}
+  .back-button{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);
+    padding:10px 18px 10px 14px;font-size:15px;font-weight:700;color:var(--accent-text);
+    cursor:pointer;transition:background .12s ease, transform .12s ease;
+  }
+  .back-button .arrow-back{font-size:17px;line-height:1;}
+  .back-button:hover{background:var(--accent-bg);}
+  .back-button:active{transform:translateY(1px);}
+  .back-button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* breadcrumb trail — only shows once you've navigated somewhere */
+  .crumb{font-size:13px;color:var(--text-muted);margin-bottom:14px;min-height:16px;}
+  .crumb button{border:none;background:none;padding:0;color:var(--accent);font-size:13px;cursor:pointer;font-weight:500;}
+  .crumb .sep{margin:0 5px;color:var(--text-muted);}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* wizard step heading — separate from breadcrumb, this is the actual question */
+  .step-eyebrow{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-text);margin:0 0 6px;}
+  .step-heading{font-size:21px;font-weight:600;margin:0 0 18px;color:var(--text);}
+
+  /* category cards */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
+  .cat-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px;text-align:left;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .cat-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.06);}
+  .cat-card .icon{
+    width:42px;height:42px;border-radius:10px;background:var(--accent-bg);color:var(--accent-text);
+    display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;
+  }
+  .cat-card h3{font-size:16px;font-weight:600;margin:0 0 4px;}
+  .cat-card p{font-size:13px;color:var(--text-muted);margin:0;}
+
+  /* product grid */
+  .prod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .prod-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;text-align:left;cursor:pointer;padding:0;
+  }
+  .prod-card .thumb{
+    width:100%;aspect-ratio:380/414;background:var(--surface-muted);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .prod-card .thumb img{width:100%;height:100%;object-fit:contain;display:block;}
+  .prod-card .thumb .tap-hint{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+    background:rgba(35,28,20,.62);color:#fff;font-size:12px;font-weight:600;
+    letter-spacing:.02em;padding:6px 12px;border-radius:20px;white-space:nowrap;
+  }
+  .prod-card .thumb .placeholder{
+    display:none;flex-direction:column;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;
+  }
+  .prod-card .body{padding:12px 14px;}
+  .prod-card .body .name{font-size:14px;font-weight:600;margin:0 0 2px;}
+  .prod-card .body .frac{font-size:12px;color:var(--text-muted);margin:0;}
+
+  /* wizard rows */
+  .wiz-row{
+    width:100%;display:flex;align-items:center;gap:12px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;
+    margin-bottom:10px;text-align:left;cursor:pointer;color:var(--text);
+  }
+  .wiz-row:hover{border-color:var(--accent);}
+  .wiz-row .wiz-icon{font-size:19px;flex-shrink:0;}
+  .wiz-row .wiz-text{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;}
+  .wiz-row .wiz-label{font-size:15px;}
+  .wiz-row .wiz-preview{font-size:12px;color:var(--text-muted);}
+  .wiz-row .arrow{margin-left:auto;color:var(--text-muted);flex-shrink:0;}
+
+  .escape{margin-top:6px;font-size:13px;}
+  .escape button, .escape a{border:none;background:none;padding:0;color:var(--accent);font-size:13px;
+    cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+  .escape + .escape{margin-top:4px;}
+
+  /* detail */
+  .detail-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;}
+  .detail-card .hero-img{width:100%;aspect-ratio:380/414;max-height:min(46vh,420px);background:var(--surface-muted);display:flex;align-items:center;justify-content:center;}
+  .detail-card .hero-img img{width:100%;height:100%;object-fit:contain;display:block;}
+  .detail-card .hero-img .placeholder{display:none;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;}
+  .detail-card .content{padding:22px 24px;}
+  .badge-rec{display:inline-flex;align-items:center;gap:6px;background:var(--success-bg);color:var(--success-text);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:8px;}
+  .based-on{font-size:13px;color:var(--text-muted);margin:0 0 12px;}
+  .detail-card h2{font-size:22px;margin:0 0 2px;}
+  .detail-card .frac{color:var(--text-muted);font-size:14px;margin:0 0 14px;}
+  .detail-card .desc{font-size:15px;color:var(--text);margin:0 0 20px;}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--radius);
+    font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--border);
+  }
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn-secondary{background:var(--surface);color:var(--text);}
+  .note{font-size:13px;color:var(--text-muted);margin-top:14px;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Hoppa till innehåll</a>
+
+<div class="contact-strip">
+  <div class="container">
+    <div class="contact-strip__links">
+      <a href="tel:+46702124451">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        070-212 44 51
+      </a>
+      <a href="mailto:ekegrus@telia.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        ekegrus@telia.com
+      </a>
+    </div>
+    <span class="contact-strip__hours">Telefontid mån–tors 06:00–15:30, fre 06:00–15:00</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo-link" href="index.html">
+      <img src="assets/logo.webp" alt="Eke Grus AB" width="52" height="42">
+      <span class="logo-link__word">EKE<span>GRUS</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-panel" aria-label="Öppna meny">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-panel" id="nav-panel" hidden>
+      <nav class="primary-nav" aria-label="Huvudmeny">
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="prislista.html">Prislista</a></li>
+          <li><a href="material.html">Material</a></li>
+          <li><a href="hitta-ratt-material.html" aria-current="page">Hitta rätt material</a></li>
+          <li><a href="galleri.html">Galleri</a></li>
+          <li><a href="faq.html">Vanliga frågor</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switch" aria-label="Språkval">
+        <a href="hitta-ratt-material.html" aria-current="true" lang="sv" hreflang="sv">SV</a>
+        <a href="en/find-material.html" lang="en" hreflang="en">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero">
+    <h1>Hitta rätt material</h1>
+    <p>Bläddra själv i kategorierna, eller svara på två snabba frågor så hjälper vi dig hitta rätt material.</p>
+  </div>
+
+  <div class="mode-toggle">
+    <button id="mode-browse" class="active">Bläddra själv</button>
+    <button id="mode-wizard">Hjälp mig välja</button>
+  </div>
+
+  <div class="back-row" id="back-row"></div>
+  <div class="crumb" id="crumb"></div>
+
+  <div class="view" id="view-categories"></div>
+  <div class="view" id="view-products"></div>
+  <div class="view" id="view-wizard1"></div>
+  <div class="view" id="view-wizard2"></div>
+  <div class="view" id="view-detail"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>Eke Grus AB</h4>
+      <p>Krossprodukter, sand, grus, jord &amp; transporter till företag och privatpersoner i Märsta och norra Stockholm.</p>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <a class="footer-phone" href="tel:+46702124451">070-212 44 51</a>
+      <p><a href="tel:+46702124452">070-212 44 52</a></p>
+      <p><a href="mailto:ekegrus@telia.com">ekegrus@telia.com</a></p>
+      <address>Åsby 860<br>195 94 Märsta</address>
+    </div>
+    <div>
+      <h4>Öppettider</h4>
+      <p>Grustag: mån–fre 06:00–15:00<br>(även klämdagar)</p>
+      <p>Telefontid: mån–tors 06:00–15:30<br>fre 06:00–15:00</p>
+      <p>Lastningsraster: 09:00–09:30, 11:00–11:15, 13:00–13:30</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Eke Grus AB · Org.nr 556117-1868</span>
+    <span class="footer-credit">Webbsida designad av Christian Tjäder · <a href="tel:+46701628722">070-162 87 22</a> · <a href="mailto:imchriz91@gmail.com">imchriz91@gmail.com</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ============================================================
+   PRODUKTDATA
+   img: relativ sökväg till samma bilder som redan används på
+   material.html (assets/materials-thumbs/...). Produkter utan
+   foto ännu får en tydlig platshållare i stället för trasig bild.
+   ============================================================ */
+const CATS = [
+  { id:'grund', name:'Husgrund, dränering & rör', desc:'Dräneringsmaterial, sättsand och kringfyllnad', icon:'&#128167;',
+    products:['stenmjol04','makadam0816','tvattadmakadam','skarv','rorgravsgrus'] },
+  { id:'tradgard', name:'Trädgård, jord & dekor', desc:'Jord, fyllning, gångar och dekorsten', icon:'&#127793;',
+    products:['anlaggningsjord','fyllnadsjord','grusfyllning','natursingel','krossgrus020','natursten'] },
+  { id:'vag', name:'Uppfart & väg', desc:'Bärlager, slitlager och förstärkning', icon:'&#128739;',
+    products:['samkross032','samkross016','asfaltskross'] },
+  { id:'mur', name:'Murning & bruk', desc:'Sand till mur- och putsbruk', icon:'&#127959;',
+    products:['mursand','putssand'] },
+];
+
+const PRODUCTS = {
+  stenmjol04:{ name:'Stenmjöl', fraction:'0/4 mm', img:'assets/materials-thumbs/stenmjöl0-4.webp',
+    desc:'Det finaste krossmaterialet. Används som sättsand under plattor och marksten, som fogmaterial, samt som slitlager på ridbanor och boulebanor. Packar hårt och ger en jämn, stabil yta.' },
+  makadam0816:{ name:'Makadam', fraction:'8/16 mm', img:'assets/materials-thumbs/makadam8-16.webp',
+    desc:'En av de vanligaste dräneringsfraktionerna. Används runt husgrunder och i dräneringsdiken. Kantiga korn ger god vattengenomsläpplighet.' },
+  tvattadmakadam:{ name:'Tvättad makadam', fraction:'16/32 mm', img:null,
+    desc:'Ren, tvättad makadam fri från stendamm. Ger extra god dränering kring dräneringsrör och i stenkistor.' },
+  skarv:{ name:'Skärv', fraction:'65/150 mm', img:null,
+    desc:'Grov krossprodukt. Används som förstärkningslager under tunga ytor och vid grundläggning av stödmurar.' },
+  rorgravsgrus:{ name:'Rörgravsgrus, stritt', fraction:'0/8 mm', img:'assets/materials-thumbs/rörgrav0-8stritt.webp',
+    desc:'Finkornigt naturgrus för kringfyllnad runt rör, avlopp och ledningar. Ger en jämn, skyddande bädd.' },
+  anlaggningsjord:{ name:'Anläggningsjord', fraction:'–', img:null,
+    desc:'Mineralbaserad jord som håller formen över tid. Används vid nyanläggning av gräsmattor, rabatter och grönytor.' },
+  fyllnadsjord:{ name:'Fyllnadsjord', fraction:'–', img:null,
+    desc:'Enklare, billigare jord för att fylla upp och jämna ut stora markytor, t.ex. inför husgrund eller väg.' },
+  grusfyllning:{ name:'Grusfyllning', fraction:'0/100 mm', img:null,
+    desc:'Grovt naturgrus som allmänt fyllnadsmaterial för stora volymer, t.ex. tomtutfyllnad.' },
+  natursingel:{ name:'Natursingel', fraction:'8/16 mm', img:'assets/materials-thumbs/natursingel8-16.webp',
+    desc:'Naturligt rundat grus. Används till trädgårdsgångar och uppfarter samt som dekorativt lager runt husgrunder.' },
+  krossgrus020:{ name:'Krossgrus', fraction:'0/20 mm', img:'assets/materials-thumbs/krossgrus0-20.webp',
+    desc:'Krossat naturgrus. Används som bottenmaterial vid garageuppfarter och plattsättning.' },
+  natursten:{ name:'Natursten', fraction:'–', img:null,
+    desc:'Osorterad naturlig sten. Används till kallmurar, stödmurar och dekorativa anläggningsprojekt.' },
+  samkross032:{ name:'Samkross (Bärlager)', fraction:'0/32 mm', img:'assets/materials-thumbs/samkross0-32.webp',
+    desc:'Standardmaterial för bärlager under vägar, uppfarter och parkeringsytor. Låser sig vid packning och ger hög bärighet.' },
+  samkross016:{ name:'Samkross', fraction:'0/16 mm', img:'assets/materials-thumbs/samkross0-16.webp',
+    desc:'Används som slitlager ovanpå bärlagret på grusvägar, gångar och uppfarter.' },
+  asfaltskross:{ name:'Asfaltskross', fraction:'0/16 mm', img:'assets/materials-thumbs/asfaltskross0-16.webp',
+    desc:'Återvunnen krossad asfalt. Miljövänligt och billigare alternativ till bergkross i bär- och slitlager.' },
+  mursand:{ name:'Mursand', fraction:'0/4 mm', img:'assets/materials-thumbs/mursand0-4.webp',
+    desc:'Fint siktad natursand. Blandas med cement/kalk och vatten till mur- och putsbruk.' },
+  putssand:{ name:'Putssand', fraction:'0/2 mm', img:'assets/materials-thumbs/putssand0-4.webp',
+    desc:'Extra finkornig natursand för putsbruk där en slät, fin ytfinish krävs.' },
+};
+
+/* ============================================================
+   GUIDEN (wizard)
+   Steg 1: bred fråga om vad kunden ska göra.
+   Steg 2: mer specifikt, med en liten förhandsvisning av vilket
+   material varje svar leder till — så kunden vet vad som väntar
+   innan de klickar.
+   id:erna matchar CATS-id:erna ovan, så "se alla i kategorin"
+   kan återanvända showProducts() rakt av.
+   ============================================================ */
+const WIZARD_STEP1 = [
+  { id:'grund', icon:'&#128167;', label:'Dränera eller bygga husgrund', question:'Vad behöver du hjälp med vid huset?' },
+  { id:'tradgard', icon:'&#127793;', label:'Fylla upp eller plantera i trädgården', question:'Vad ska du fylla eller anlägga?' },
+  { id:'vag', icon:'&#128739;', label:'Bygga eller laga en uppfart', question:'Vad handlar det om?' },
+  { id:'mur', icon:'&#127959;', label:'Mura eller putsa', question:'Murning eller putsning?' },
+];
+
+const WIZARD_STEP2 = {
+  grund: [
+    { label:'Dränering runt grunden', pid:'makadam0816' },
+    { label:'Underlag för plattor eller marksten', pid:'stenmjol04' },
+    { label:'Fyllning runt rör och ledningar', pid:'rorgravsgrus' },
+    { label:'Stödmur eller förstärkning', pid:'skarv' },
+  ],
+  tradgard: [
+    { label:'Fylla upp med grus', pid:'grusfyllning' },
+    { label:'Fylla upp med jord (billigare)', pid:'fyllnadsjord' },
+    { label:'Gräsmatta eller rabatt', pid:'anlaggningsjord' },
+    { label:'Dekorativ gång eller uppfart', pid:'natursingel' },
+  ],
+  vag: [
+    { label:'Bygga en helt ny uppfart', pid:'samkross032' },
+    { label:'Fylla på slitlager ovanpå', pid:'samkross016' },
+    { label:'Laga eller fylla på en grusväg', pid:'asfaltskross' },
+  ],
+  mur: [
+    { label:'Murning (tegel, block)', pid:'mursand' },
+    { label:'Putsning (fin yta)', pid:'putssand' },
+  ],
+};
+
+/* ============================================================ */
+
+const $ = id => document.getElementById(id);
+const views = ['view-categories','view-products','view-wizard1','view-wizard2','view-detail'];
+function showOnly(id){ views.forEach(v => $(v).classList.toggle('active', v===id)); }
+
+// Renders a clear, always-visible back button when there's a previous
+// step to return to. Pass the function that redraws that previous step,
+// or null/undefined on the two root screens (categories, wizard step 1)
+// where there is no "one step back" within the flow.
+function renderBack(fn){
+  const el = $('back-row');
+  if(!fn){ el.innerHTML = ''; return; }
+  el.innerHTML = `<button class="back-button" id="back-button-el"><span class="arrow-back">&larr;</span> Tillbaka</button>`;
+  $('back-button-el').addEventListener('click', fn);
+}
+
+// Renders a real breadcrumb trail from an array of {label, fn}.
+// The last item is shown as plain text (current page); everything
+// before it is a clickable link back to that exact step.
+function renderCrumb(trail){
+  const el = $('crumb');
+  if(!trail || !trail.length){ el.innerHTML = ''; return; }
+  el.innerHTML = trail.map((t,i) => {
+    if(i === trail.length - 1) return `<span>${t.label}</span>`;
+    return `<button data-i="${i}">${t.label}</button><span class="sep">&rsaquo;</span>`;
+  }).join('');
+  trail.forEach((t,i) => {
+    if(t.fn){ el.querySelector(`[data-i="${i}"]`)?.addEventListener('click', t.fn); }
+  });
+}
+
+function thumbHtml(p, tall){
+  const cls = tall ? 'hero-img' : 'thumb';
+  const hint = tall ? '' : '<span class="tap-hint">Klicka här</span>';
+  if(p.img){
+    return `<div class="${cls}">
+      <img src="${p.img}" alt="${p.name} ${p.fraction}" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="placeholder"><span>&#128247;</span><span>Bild saknas</span></div>
+      ${hint}
+    </div>`;
+  }
+  return `<div class="${cls}"><div class="placeholder" style="display:flex;"><span style="font-size:22px;">&#128247;</span><span>Bild kommer snart</span></div>${hint}</div>`;
+}
+
+/* ---------- Bläddra-läget ---------- */
+
+function renderCategories(){
+  renderBack(null);
+  renderCrumb([]);
+  $('view-categories').innerHTML = `<div class="cat-grid">` + CATS.map(c => `
+    <div class="cat-card" data-id="${c.id}">
+      <div class="icon">${c.icon}</div>
+      <h3>${c.name}</h3>
+      <p>${c.desc}</p>
+    </div>`).join('') + `</div>`;
+  $('view-categories').querySelectorAll('.cat-card').forEach(el =>
+    el.addEventListener('click', () => showProducts(el.dataset.id)));
+  showOnly('view-categories');
+}
+
+function showProducts(catId){
+  const cat = CATS.find(c=>c.id===catId);
+  renderBack(renderCategories);
+  renderCrumb([{ label:'Kategorier', fn:renderCategories }, { label:cat.name }]);
+
+  $('view-products').innerHTML = `<div class="prod-grid">` + cat.products.map(pid => {
+    const p = PRODUCTS[pid];
+    return `<div class="prod-card" data-id="${pid}">
+      ${thumbHtml(p,false)}
+      <div class="body"><p class="name">${p.name}</p><p class="frac">Fraktion ${p.fraction}</p></div>
+    </div>`;
+  }).join('') + `</div>`;
+  $('view-products').querySelectorAll('.prod-card').forEach(el =>
+    el.addEventListener('click', () => showDetail(el.dataset.id, {
+      trail: [{ label:'Kategorier', fn:renderCategories }, { label:cat.name, fn:()=>showProducts(catId) }]
+    })));
+  showOnly('view-products');
+}
+
+/* ---------- Guide-läget ---------- */
+
+function renderWizardStep1(){
+  renderBack(null);
+  renderCrumb([]);
+  $('view-wizard1').innerHTML = `
+    <p class="step-eyebrow">Steg 1 av 2</p>
+    <h2 class="step-heading">Vad ska du göra?</h2>
+    ` + WIZARD_STEP1.map(w => `
+      <div class="wiz-row" data-id="${w.id}">
+        <span class="wiz-icon">${w.icon}</span>
+        <span class="wiz-text"><span class="wiz-label">${w.label}</span></span>
+        <span class="arrow">&rsaquo;</span>
+      </div>`).join('') + `
+    <p class="escape"><button data-a="browse">Vet du redan vad du letar efter? Bläddra i alla produkter i stället &rarr;</button></p>
+    <p class="escape"><a href="tel:+46702124451">Osäker helt och hållet? Ring oss på 070-212 44 51 &rarr;</a></p>
+  `;
+  $('view-wizard1').querySelectorAll('.wiz-row').forEach(el =>
+    el.addEventListener('click', () => renderWizardStep2(el.dataset.id)));
+  $('view-wizard1').querySelector('[data-a="browse"]').addEventListener('click', () => switchMode('browse'));
+  showOnly('view-wizard1');
+}
+
+function renderWizardStep2(branchId){
+  const step1 = WIZARD_STEP1.find(w => w.id === branchId);
+  renderBack(renderWizardStep1);
+  renderCrumb([{ label:'Steg 1', fn:renderWizardStep1 }, { label:step1.label }]);
+
+  $('view-wizard2').innerHTML = `
+    <p class="step-eyebrow">Steg 2 av 2</p>
+    <h2 class="step-heading">${step1.question}</h2>
+    ` + WIZARD_STEP2[branchId].map(o => {
+      const p = PRODUCTS[o.pid];
+      return `<div class="wiz-row" data-pid="${o.pid}">
+        <span class="wiz-text">
+          <span class="wiz-label">${o.label}</span>
+          <span class="wiz-preview">&rarr; ${p.name} ${p.fraction}</span>
+        </span>
+        <span class="arrow">&rsaquo;</span>
+      </div>`;
+    }).join('') + `
+    <p class="escape"><button data-a="allInCat">Inget som stämmer? Se alla produkter i kategorin &rarr;</button></p>
+  `;
+  $('view-wizard2').querySelectorAll('.wiz-row').forEach(el =>
+    el.addEventListener('click', () => {
+      const leaf = WIZARD_STEP2[branchId].find(o => o.pid === el.dataset.pid);
+      showDetail(el.dataset.pid, {
+        trail: [{ label:'Steg 1', fn:renderWizardStep1 }, { label:step1.label, fn:()=>renderWizardStep2(branchId) }],
+        recommended: true,
+        basedOn: leaf.label
+      });
+    }));
+  $('view-wizard2').querySelector('[data-a="allInCat"]').addEventListener('click', () => showProducts(branchId));
+  showOnly('view-wizard2');
+}
+
+/* ---------- Produktsida (delas av båda lägena) ---------- */
+
+function showDetail(pid, opts){
+  opts = opts || {};
+  const p = PRODUCTS[pid];
+  const trail = opts.trail || [];
+  renderBack(trail.length ? trail[trail.length - 1].fn : null);
+  renderCrumb([...trail, { label:p.name }]);
+
+  const calcUrl = 'prislista.html?material=' + encodeURIComponent(p.name + ' ' + p.fraction) + '#calculator';
+  const priceUrl = 'prislista.html';
+
+  $('view-detail').innerHTML = `
+    <div class="detail-card">
+      ${thumbHtml(p, true)}
+      <div class="content">
+        ${opts.recommended ? '<span class="badge-rec">&#10003; Rekommenderat val</span>' : ''}
+        ${opts.basedOn ? `<p class="based-on">Baserat på: ${opts.basedOn}</p>` : ''}
+        <h2>${p.name}</h2>
+        <p class="frac">Fraktion ${p.fraction}</p>
+        <p class="desc">${p.desc}</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="${calcUrl}">Beräkna mängd för detta material</a>
+          <a class="btn btn-secondary" href="${priceUrl}">Se pris i prislistan</a>
+        </div>
+        <p class="note">Priser och aktuell tillgång bekräftas alltid vid beställning — ring 070-212 44 51 eller maila ekegrus@telia.com.</p>
+      </div>
+    </div>`;
+  showOnly('view-detail');
+}
+
+/* ---------- Läges-växling ---------- */
+
+function switchMode(mode){
+  $('mode-browse').classList.toggle('active', mode === 'browse');
+  $('mode-wizard').classList.toggle('active', mode === 'wizard');
+  if(mode === 'browse'){ renderCategories(); } else { renderWizardStep1(); }
+}
+$('mode-browse').addEventListener('click', () => switchMode('browse'));
+$('mode-wizard').addEventListener('click', () => switchMode('wizard'));
+
+switchMode('browse');
+</script>
+</body>
+</html>

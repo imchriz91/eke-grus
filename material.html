@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f6f1e7">
-<title>Material i närbild | Eke Grus AB</title>
-<meta name="description" content="Se hur våra vanligaste material faktiskt ser ut — närbilder på allt från stenmjöl och sand till makadam och samkross, fotograferade i verkligheten hos Eke Grus AB i Märsta.">
-<meta property="og:title" content="Material i närbild | Eke Grus AB">
-<meta property="og:description" content="Närbilder på våra vanligaste material — se kornstorlek och färg innan du beställer.">
+<title>Vårt material | Bergkross, Sand & Grus – Eke Grus AB</title>
+<meta name="description" content="Alla våra material samlade på ett ställe — klicka på ett kort för att se vad det används till, länk till prislistan. Bergkross, sand, grus och jord i Märsta.">
+<meta property="og:title" content="Vårt material | Bergkross, Sand & Grus – Eke Grus AB">
+<meta property="og:description" content="Alla våra material samlade på ett ställe — klicka på ett kort för att se vad det används till och länk till prislistan.">
 <meta property="og:image" content="assets/materials/stenmjöl0-4.jpg">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vårt material | Bergkross, Sand & Grus – Eke Grus AB">
+<meta name="twitter:description" content="Alla våra material samlade på ett ställe — klicka på ett kort för att se vad det används till och länk till prislistan.">
+<meta name="twitter:image" content="assets/materials/stenmjöl0-4.jpg">
+<meta name="theme-color" content="#f6f1e7">
+<link rel="canonical" href="https://www.ekegrus.se/material.html">
 <link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/material.html">
 <link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/materials.html">
 <link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/material.html">
@@ -19,6 +24,556 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+  :root{
+    --bg:#f6f1e7;
+    --surface:#ffffff;
+    --surface-muted:#efe8d9;
+    --text:#2b2621;
+    --text-muted:#6b6258;
+    --accent:#9e3b23;      /* juster till er exakta logofärg */
+    --accent-bg:#f3e3dd;
+    --accent-text:#7a2c1a;
+    --border:#e2d9c7;
+    --radius:12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  /* ============ BYT UT DENNA SEKTION MOT ER BEFINTLIGA HEADER/NAV-INCLUDE ============ */
+  header.site-placeholder{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    padding:14px 20px;font-size:14px;color:var(--text-muted);text-align:center;
+  }
+  /* ==================================================================================== */
+
+  main{max-width:1080px;margin:0 auto;padding:32px 20px 60px;}
+
+  .hero{text-align:center;margin-bottom:24px;padding:40px 0 8px;}
+  .hero h1{font-size:28px;font-weight:600;margin:0 0 10px;color:var(--text);}
+  .hero p{color:var(--text-muted);font-size:16px;max-width:560px;margin:0 auto;}
+  .hero .sub{font-size:13px;margin-top:10px;}
+  .hero .sub a{color:var(--accent);}
+
+  /* search + filter chips — sticky together so both stay reachable during a long scroll */
+  .controls{position:sticky;top:0;z-index:10;background:var(--bg);padding-top:14px;border-bottom:1px solid var(--border);}
+
+  .search-row{display:flex;justify-content:center;margin-bottom:12px;}
+  .search-box{position:relative;width:100%;max-width:420px;}
+  .search-box input{
+    width:100%;height:40px;border-radius:999px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);font-size:14px;
+    padding:0 38px 0 16px;outline:none;
+  }
+  .search-box input:focus{border-color:var(--accent);}
+  .search-box input::placeholder{color:var(--text-muted);}
+  .search-box input::-webkit-search-cancel-button{display:none;}
+  .search-clear{
+    position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;border-radius:50%;border:none;background:transparent;
+    color:var(--text-muted);font-size:16px;cursor:pointer;display:none;
+    align-items:center;justify-content:center;
+  }
+  .search-clear.show{display:flex;}
+  .search-clear:hover{background:var(--surface-muted);}
+
+  .filter-bar{
+    padding-bottom:14px;margin-bottom:22px;
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  }
+  .chip{
+    border:1px solid var(--border);background:var(--surface);color:var(--text);
+    font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:500;
+    transition:all .12s ease;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .chip .count{opacity:.75;font-weight:400;}
+
+  .result-count{text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:18px;}
+
+  /* small, image-led cards — click for detail */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;cursor:pointer;padding:0;text-align:left;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08);}
+  .card .thumb{
+    width:100%;aspect-ratio:1/1;background:var(--surface-muted);position:relative;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  }
+  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card .thumb .placeholder{display:none;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);font-size:10px;text-align:center;padding:0 6px;}
+  .card .tap-hint{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+    background:rgba(35,28,20,.62);color:#fff;font-size:11px;font-weight:600;
+    letter-spacing:.02em;padding:5px 10px;border-radius:20px;white-space:nowrap;
+  }
+  .card .label{padding:8px 10px 10px;}
+  .card .name{font-size:12.5px;font-weight:600;margin:0;line-height:1.3;}
+  .card .frac{font-size:11px;color:var(--text-muted);margin:1px 0 0;}
+
+  .empty{display:none;text-align:center;color:var(--text-muted);font-size:14px;padding:40px 0;}
+  .empty.show{display:block;}
+
+  .note{font-size:13px;color:var(--text-muted);margin-top:32px;text-align:center;}
+  .note a{color:var(--accent);}
+
+  /* modal */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(35,28,20,.55);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    z-index:100;opacity:0;visibility:hidden;transition:opacity .15s ease;
+  }
+  .modal-backdrop.open{opacity:1;visibility:visible;}
+  .modal{
+    background:var(--surface);border-radius:16px;max-width:480px;width:100%;
+    max-height:88vh;overflow-y:auto;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--border);font-size:18px;line-height:1;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;color:var(--text);
+  }
+  .modal-close:hover{border-color:var(--accent);}
+  .modal-img{width:100%;aspect-ratio:380/414;max-height:min(34vh,320px);background:var(--surface-muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+  .modal-img img{width:100%;height:100%;object-fit:contain;display:block;}
+  .modal-img .placeholder{display:none;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;}
+  .modal-body{padding:18px 24px 0;}
+  .modal-body h2{font-size:22px;margin:0 0 2px;}
+  .modal-body .frac{color:var(--text-muted);font-size:14px;margin:0 0 10px;}
+  .modal-body .desc{font-size:15px;color:var(--text);margin:0 0 16px;}
+  .modal-actions{
+    display:flex;gap:10px;flex-wrap:wrap;
+    position:sticky;bottom:0;background:var(--surface);
+    padding:12px 0 20px;box-shadow:0 -8px 12px -6px rgba(35,28,20,.08);
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--radius);
+    font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--border);
+  }
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn-secondary{background:var(--surface);color:var(--text);}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Eke Grus AB — Materials",
+  "url": "https://www.ekegrus.se/material.html",
+  "numberOfItems": 35,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Stenmjöl 0/4 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Det finaste krossmaterialet. Används som sättsand under plattor och marksten, som fogmaterial, samt som slitlager på ridbanor och boulebanor. Packar hårt och ger en jämn, stabil yta.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/stenmjöl0-4.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Stenmjöl 0/8 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Något grövre variant av stenmjöl. Används på liknande sätt som 0/4 — underlag för plattor, gångar och uppfarter — men ger bättre bärighet och dränering vid högre belastning.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/stenmjöl0-8.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 2/5 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Fin, tvättad krossprodukt fri från finmaterial. Används vid halkbekämpning på vintern samt som dränerande material där en finare fraktion önskas.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 4/8 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Dränerande makadam. Används till halkbekämpning, grusgångar, husgrunder och garageuppfarter samt som dekorativt ytlager.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam4-8.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 8/11 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Används till dränering, grusgångar och gårdsplaner. Ger god vattengenomsläpplighet och en stabil, kantig struktur.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam8-11.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 8/16 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "En av de vanligaste dräneringsfraktionerna. Används runt husgrunder, i dräneringsdiken och under kantstöd. Lätt att skotta för hand.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam8-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 11/16 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Liknande användning som 8/16 — dränering och bärande/dränerande lager där en något grövre fraktion önskas.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam11-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 16/22 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Grövre dränerande makadam. Används i dräneringslager, som kapillärbrytande skikt och vid större anläggningsarbeten.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam16-22.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 16/32 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Mycket vanlig i dränering, som markbädd vid infiltrationsanläggningar och som grund att gjuta betong på. Används även bakom stödmurar som dränerande fyllning.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/makadam16-32.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "Product",
+        "name": "Makadam 32/63 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Grov makadam för tunga anläggningsarbeten, grov dränering, stenkistor och kapillärbrytande lager där stora hålrum och snabb vattengenomströmning behövs.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+        "@type": "Product",
+        "name": "Tvättad makadam 16/32 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Ren, tvättad makadam fri från stendamm — ger extra god dränering. Används kring dräneringsrör, i stenkistor och vid anläggningar med höga krav på renhet.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+        "@type": "Product",
+        "name": "Skärv 65/150 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Grov krossprodukt, större än makadam. Används som förstärkningslager under tunga ytor och vid grundläggning av stödmurar där stabilitet och god vattenavledning krävs.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "Product",
+        "name": "Berg",
+        "category": "Husgrund, dränering & rör",
+        "description": "Osorterat sprängt och krossat berg i blandad storlek. Används huvudsakligen som fyllnadsmaterial vid utfyllnad och grov uppbyggnad av mark, där exakt fraktion inte krävs.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+        "@type": "Product",
+        "name": "Rörgravsgrus, stritt 0/8 mm",
+        "category": "Husgrund, dränering & rör",
+        "description": "Finkornigt naturgrus särskilt avsett för kringfyllnad runt rör, avlopp och ledningar. Ger en jämn, väl packad och skyddande bädd.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/rörgrav0-8stritt.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+        "@type": "Product",
+        "name": "Grusfyllning 0/100 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Grovt, osorterat naturgrus. Används som allmänt fyllnadsmaterial för att fylla upp och jämna ut markytor i stor volym, t.ex. inför vägbyggen eller tomtutfyllnad.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+        "@type": "Product",
+        "name": "Krossgrus 0/20 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Krossat naturgrus. Används som bottenmaterial vid garageuppfarter, plattsättning och vägbyggen — ett lättarbetat alternativ till grövre bärlager.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/krossgrus0-20.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+        "@type": "Product",
+        "name": "Natursingel 8/16 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Naturligt rundat grus, ej krossat. Används till trädgårdsgångar, uppfarter och som dränerande, dekorativt lager runt husgrunder. Skön att gå på.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/natursingel8-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+        "@type": "Product",
+        "name": "Krossat natur 4/8 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Krossat naturgrus i fin fraktion. Används som halkbekämpning och dekorativt ytlager samt vid mindre anläggningsarbeten.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+        "@type": "Product",
+        "name": "Krossat natur 8/11 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Krossat naturgrus för trädgårdsgångar och körytor samt som dränerande fyllning — ger en stabil och relativt jämn yta.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+        "@type": "Product",
+        "name": "Krossat natur 8/16 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Mångsidig fraktion för trädgårdsgångar, körytor och uppfarter samt som dränerande fyllnadsmaterial. Tål lätt trafik och slitage bra.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+        "@type": "Product",
+        "name": "Krossat natur 16/38 mm",
+        "category": "Trädgård, jord & dekor",
+        "description": "Grövre krossat naturgrus. Används vid grövre anläggningsarbeten och vid uppbyggnad av körytor som ska tåla högre belastning.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/krossad-natur16-38.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+        "@type": "Product",
+        "name": "Natursten",
+        "category": "Trädgård, jord & dekor",
+        "description": "Osorterad, blandad naturlig sten. Används som dekorationssten, till kallmurar och stödmurar där naturens egen stenform och variation efterfrågas.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+        "@type": "Product",
+        "name": "Anläggningsjord",
+        "category": "Trädgård, jord & dekor",
+        "description": "Mineralbaserad jord med lägre mullhalt som håller formen över tid. Används vid nyanläggning av gräsmattor, rabatter och grönytor som grund inför plantering.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+        "@type": "Product",
+        "name": "Fyllnadsjord",
+        "category": "Trädgård, jord & dekor",
+        "description": "Enklare och billigare jordmaterial som främst används för att fylla upp och jämna ut markytor i stor volym, t.ex. inför husgrund eller väg.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/11 mm",
+        "category": "Uppfart & väg",
+        "description": "Finare samkross. Används som slitlager på grusvägar och gårdsplaner — ger en jämn, körbar yta.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-11.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/16 mm",
+        "category": "Uppfart & väg",
+        "description": "Används som slitlager ovanpå ett bärlager, på grusvägar, gångar och uppfarter. Ofta kallat väggrus.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross (Bärlager) 0/32 mm",
+        "category": "Uppfart & väg",
+        "description": "Standardmaterial för bärlager under vägar, uppfarter och parkeringsytor. De kantiga kornen låser sig vid packning och ger hög bärighet.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-32.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/63 mm",
+        "category": "Uppfart & väg",
+        "description": "Förstärkningslager som läggs under bärlagret för en stabil grund vid vägar och parkeringsytor, särskilt på mjuk eller ojämn mark.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/samkross0-63.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/90 mm",
+        "category": "Uppfart & väg",
+        "description": "Grövre förstärkningslager för tyngre belastning — vägar, större planer och uppbyggnad av mark på svag undergrund.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/125 mm",
+        "category": "Uppfart & väg",
+        "description": "Grovt förstärkningslager för stora anläggningsarbeten och vägkroppar där stor uppbyggnadshöjd eller tung belastning förekommer.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "item": {
+        "@type": "Product",
+        "name": "Samkross 0/150 mm",
+        "category": "Uppfart & väg",
+        "description": "Grövsta samkrossfraktionen. Baslager i konstruktioner med stor lagertjocklek — vägbyggen och parkeringsytor — ofta kombinerat med finare material närmare ytan.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "item": {
+        "@type": "Product",
+        "name": "Asfaltskross 0/16 mm",
+        "category": "Uppfart & väg",
+        "description": "Återvunnen krossad asfalt. Används som slitlager på grusvägar och som bärlager vid uppfarter och parkeringsytor — miljövänligare och billigare än bergkross.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/asfaltskross0-16.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "item": {
+        "@type": "Product",
+        "name": "Asfaltskross 0/45 mm",
+        "category": "Uppfart & väg",
+        "description": "Grövre återvunnen asfalt. Används som förstärknings- och bärlager vid vägar och parkeringsytor — ett kostnadseffektivt alternativ till nyproducerat bergkross.",
+        "url": "https://www.ekegrus.se/material.html"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "item": {
+        "@type": "Product",
+        "name": "Mursand 0/4 mm",
+        "category": "Murning & bruk",
+        "description": "Fint siktad natursand, fri från större stenar och föroreningar. Blandas med cement, kalk och vatten till mur- och putsbruk.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/mursand0-4.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "item": {
+        "@type": "Product",
+        "name": "Putssand 0/2 mm",
+        "category": "Murning & bruk",
+        "description": "Extra finkornig natursand avsedd för putsbruk där en slät, fin ytfinish krävs. Ger jämn bindning och ett estetiskt resultat vid fasadputsning.",
+        "url": "https://www.ekegrus.se/material.html",
+        "image": "https://www.ekegrus.se/assets/materials-thumbs/putssand0-4.webp"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Hoppa till innehåll</a>
@@ -54,6 +609,7 @@
           <li><a href="index.html">Start</a></li>
           <li><a href="prislista.html">Prislista</a></li>
           <li><a href="material.html" aria-current="page">Material</a></li>
+          <li><a href="hitta-ratt-material.html">Hitta rätt material</a></li>
           <li><a href="galleri.html">Galleri</a></li>
           <li><a href="faq.html">Vanliga frågor</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
@@ -68,158 +624,27 @@
 </header>
 
 <main id="main">
-  <section style="padding-block: var(--space-7) var(--space-5);">
-    <div class="container">
-      <span class="hero__eyebrow">Material</span>
-      <h1 style="font-size: var(--text-h2);">Vårt material i närbild</h1>
-      <p class="lead">Namn och sifferkoder säger inte alltid så mycket — här ser du hur materialet faktiskt ser ut. Alla bilder är tagna på riktiga prover hos oss i Märsta, inte stockbilder. Klicka på en bild för att se den i helskärm.</p>
-    </div>
-  </section>
+  <div class="hero">
+    <h1>Vårt material</h1>
+    <p>Klicka på ett kort för att se vad materialet används till och länk till aktuellt pris.</p>
+    <p class="sub">Osäker på vilket du behöver? Prova vår <a href="hitta-ratt-material.html">guide</a> i stället.</p>
+  </div>
 
-  <section style="padding-top: 0;">
-    <div class="container reveal">
-      <div class="material-grid">
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/stenmjöl0-4.webp">
-            <img src="assets/materials-thumbs/stenmjöl0-4.webp" alt="Stenmjöl 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Stenmjöl 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/stenmjöl0-8.webp">
-            <img src="assets/materials-thumbs/stenmjöl0-8.webp" alt="Stenmjöl 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Stenmjöl 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/samkross0-11.webp">
-            <img src="assets/materials-thumbs/samkross0-11.webp" alt="Samkross 0/11" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Samkross 0/11</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/samkross0-16.webp">
-            <img src="assets/materials-thumbs/samkross0-16.webp" alt="Samkross 0/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Samkross 0/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/samkross0-32.webp">
-            <img src="assets/materials-thumbs/samkross0-32.webp" alt="Samkross 0/32" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Samkross 0/32</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/samkross0-63.webp">
-            <img src="assets/materials-thumbs/samkross0-63.webp" alt="Samkross 0/63" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Samkross 0/63</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam2-4.webp">
-            <img src="assets/materials-thumbs/makadam2-4.webp" alt="Makadam 2/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 2/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam4-8.webp">
-            <img src="assets/materials-thumbs/makadam4-8.webp" alt="Makadam 4/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 4/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam8-11.webp">
-            <img src="assets/materials-thumbs/makadam8-11.webp" alt="Makadam 8/11" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 8/11</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam8-16.webp">
-            <img src="assets/materials-thumbs/makadam8-16.webp" alt="Makadam 8/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 8/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam11-16.webp">
-            <img src="assets/materials-thumbs/makadam11-16.webp" alt="Makadam 11/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 11/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam16-22.webp">
-            <img src="assets/materials-thumbs/makadam16-22.webp" alt="Makadam 16/22" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 16/22</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/makadam16-32.webp">
-            <img src="assets/materials-thumbs/makadam16-32.webp" alt="Makadam 16/32" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Makadam 16/32</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/asfaltskross0-16.webp">
-            <img src="assets/materials-thumbs/asfaltskross0-16.webp" alt="Asfaltkross 0/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Asfaltkross 0/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/mursand0-4.webp">
-            <img src="assets/materials-thumbs/mursand0-4.webp" alt="Mursand 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Mursand 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/putssand0-4.webp">
-            <img src="assets/materials-thumbs/putssand0-4.webp" alt="Putssand 0/4" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Putssand 0/4</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/rörgravsgrus0-8.webp">
-            <img src="assets/materials-thumbs/rörgravsgrus0-8.webp" alt="Rörgravsgrus 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Rörgravsgrus 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/rörgrav0-8stritt.webp">
-            <img src="assets/materials-thumbs/rörgrav0-8stritt.webp" alt="Rörgravsgrus, stritt 0/8" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Rörgravsgrus, stritt 0/8</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/natursingel8-16.webp">
-            <img src="assets/materials-thumbs/natursingel8-16.webp" alt="Natursingel 8/16" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Natursingel 8/16</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/krossgrus0-20.webp">
-            <img src="assets/materials-thumbs/krossgrus0-20.webp" alt="Krossgrus 0/20" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Krossgrus 0/20</span>
-        </div>
-        <div class="material-card">
-          <button type="button" class="gallery-item" data-full="assets/materials/krossad-natur16-38.webp">
-            <img src="assets/materials-thumbs/krossad-natur16-38.webp" alt="Krossat natur 16/38" width="380" height="414" loading="lazy">
-          </button>
-          <span class="material-card__name">Krossat natur 16/38</span>
-        </div>
-      </div>
-
-      <p style="margin-top: var(--space-5); color: var(--color-ink-soft);">Kulör och kornstorlek kan variera något mellan leveranser. Osäker på vilket material som passar ditt projekt? Se <a href="faq.html">vanliga frågor</a> eller hör av dig så guidar vi dig rätt.</p>
-
-      <div class="callout" style="margin-top: var(--space-6);">
-        <div>
-          <h3 class="mt-0">Redo att beställa?</h3>
-          <p>Se aktuella priser och ladda ner våra prislistor som PDF.</p>
-        </div>
-        <div>
-          <a class="btn btn-accent" href="prislista.html">Till prislistan →</a>
-        </div>
+  <div class="controls">
+    <div class="search-row">
+      <div class="search-box">
+        <input type="search" id="search-input" placeholder="Sök t.ex makadam, samkross, väg, slitlager." aria-label="Sök material">
+        <button class="search-clear" id="search-clear" aria-label="Rensa sökning">&times;</button>
       </div>
     </div>
-  </section>
+    <div class="filter-bar" id="filter-bar"></div>
+  </div>
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">Inga produkter i den här kategorin just nu.</p>
+
+  <p class="note">Priser och aktuell tillgång bekräftas alltid vid beställning — ring <a href="tel:+46702124451">070-212 44 51</a> eller maila <a href="mailto:ekegrus@telia.com">ekegrus@telia.com</a>.</p>
 </main>
 
 <footer class="site-footer">
@@ -248,6 +673,234 @@
   </div>
 </footer>
 
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Stäng">&times;</button>
+    <div class="modal-img" id="modal-img"></div>
+    <div class="modal-body">
+      <h2 id="modal-title"></h2>
+      <p class="frac" id="modal-frac"></p>
+      <p class="desc" id="modal-desc"></p>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
+<script>
+/* ============================================================
+   KATEGORIER — samma fyra som i guiden (hitta-ratt-material.html)
+   ============================================================ */
+const CATS = [
+  { id:'grund', name:'Husgrund, dränering & rör' },
+  { id:'tradgard', name:'Trädgård, jord & dekor' },
+  { id:'vag', name:'Uppfart & väg' },
+  { id:'mur', name:'Murning & bruk' },
+];
+
+/* ============================================================
+   PRODUKTER — samtliga 35 rader från prislistan.
+   img: sökväg till befintliga foton i assets/materials-thumbs/.
+   desc: fullständig beskrivning som visas i modalen.
+   ============================================================ */
+const PRODUCTS = [
+  { id:'stenmjol04', name:'Stenmjöl', fraction:'0/4 mm', cat:'grund', img:'assets/materials-thumbs/stenmjöl0-4.webp',
+    desc:'Det finaste krossmaterialet. Används som sättsand under plattor och marksten, som fogmaterial, samt som slitlager på ridbanor och boulebanor. Packar hårt och ger en jämn, stabil yta.' },
+  { id:'stenmjol08', name:'Stenmjöl', fraction:'0/8 mm', cat:'grund', img:'assets/materials-thumbs/stenmjöl0-8.webp',
+    desc:'Något grövre variant av stenmjöl. Används på liknande sätt som 0/4 — underlag för plattor, gångar och uppfarter — men ger bättre bärighet och dränering vid högre belastning.' },
+  { id:'makadam25', name:'Makadam', fraction:'2/5 mm', cat:'grund', img:null,
+    desc:'Fin, tvättad krossprodukt fri från finmaterial. Används vid halkbekämpning på vintern samt som dränerande material där en finare fraktion önskas.' },
+  { id:'makadam48', name:'Makadam', fraction:'4/8 mm', cat:'grund', img:'assets/materials-thumbs/makadam4-8.webp',
+    desc:'Dränerande makadam. Används till halkbekämpning, grusgångar, husgrunder och garageuppfarter samt som dekorativt ytlager.' },
+  { id:'makadam811', name:'Makadam', fraction:'8/11 mm', cat:'grund', img:'assets/materials-thumbs/makadam8-11.webp',
+    desc:'Används till dränering, grusgångar och gårdsplaner. Ger god vattengenomsläpplighet och en stabil, kantig struktur.' },
+  { id:'makadam816', name:'Makadam', fraction:'8/16 mm', cat:'grund', img:'assets/materials-thumbs/makadam8-16.webp',
+    desc:'En av de vanligaste dräneringsfraktionerna. Används runt husgrunder, i dräneringsdiken och under kantstöd. Lätt att skotta för hand.' },
+  { id:'makadam1116', name:'Makadam', fraction:'11/16 mm', cat:'grund', img:'assets/materials-thumbs/makadam11-16.webp',
+    desc:'Liknande användning som 8/16 — dränering och bärande/dränerande lager där en något grövre fraktion önskas.' },
+  { id:'makadam1622', name:'Makadam', fraction:'16/22 mm', cat:'grund', img:'assets/materials-thumbs/makadam16-22.webp',
+    desc:'Grövre dränerande makadam. Används i dräneringslager, som kapillärbrytande skikt och vid större anläggningsarbeten.' },
+  { id:'makadam1632', name:'Makadam', fraction:'16/32 mm', cat:'grund', img:'assets/materials-thumbs/makadam16-32.webp',
+    desc:'Mycket vanlig i dränering, som markbädd vid infiltrationsanläggningar och som grund att gjuta betong på. Används även bakom stödmurar som dränerande fyllning.' },
+  { id:'makadam3263', name:'Makadam', fraction:'32/63 mm', cat:'grund', img:null,
+    desc:'Grov makadam för tunga anläggningsarbeten, grov dränering, stenkistor och kapillärbrytande lager där stora hålrum och snabb vattengenomströmning behövs.' },
+  { id:'tvattadmakadam1632', name:'Tvättad makadam', fraction:'16/32 mm', cat:'grund', img:null,
+    desc:'Ren, tvättad makadam fri från stendamm — ger extra god dränering. Används kring dräneringsrör, i stenkistor och vid anläggningar med höga krav på renhet.' },
+  { id:'skarv', name:'Skärv', fraction:'65/150 mm', cat:'grund', img:null,
+    desc:'Grov krossprodukt, större än makadam. Används som förstärkningslager under tunga ytor och vid grundläggning av stödmurar där stabilitet och god vattenavledning krävs.' },
+  { id:'berg', name:'Berg', fraction:'–', cat:'grund', img:null,
+    desc:'Osorterat sprängt och krossat berg i blandad storlek. Används huvudsakligen som fyllnadsmaterial vid utfyllnad och grov uppbyggnad av mark, där exakt fraktion inte krävs.' },
+  { id:'rorgravsgrus', name:'Rörgravsgrus, stritt', fraction:'0/8 mm', cat:'grund', img:'assets/materials-thumbs/rörgrav0-8stritt.webp',
+    desc:'Finkornigt naturgrus särskilt avsett för kringfyllnad runt rör, avlopp och ledningar. Ger en jämn, väl packad och skyddande bädd.' },
+
+  { id:'grusfyllning', name:'Grusfyllning', fraction:'0/100 mm', cat:'tradgard', img:null,
+    desc:'Grovt, osorterat naturgrus. Används som allmänt fyllnadsmaterial för att fylla upp och jämna ut markytor i stor volym, t.ex. inför vägbyggen eller tomtutfyllnad.' },
+  { id:'krossgrus020', name:'Krossgrus', fraction:'0/20 mm', cat:'tradgard', img:'assets/materials-thumbs/krossgrus0-20.webp',
+    desc:'Krossat naturgrus. Används som bottenmaterial vid garageuppfarter, plattsättning och vägbyggen — ett lättarbetat alternativ till grövre bärlager.' },
+  { id:'natursingel', name:'Natursingel', fraction:'8/16 mm', cat:'tradgard', img:'assets/materials-thumbs/natursingel8-16.webp',
+    desc:'Naturligt rundat grus, ej krossat. Används till trädgårdsgångar, uppfarter och som dränerande, dekorativt lager runt husgrunder. Skön att gå på.' },
+  { id:'krossatnatur48', name:'Krossat natur', fraction:'4/8 mm', cat:'tradgard', img:null,
+    desc:'Krossat naturgrus i fin fraktion. Används som halkbekämpning och dekorativt ytlager samt vid mindre anläggningsarbeten.' },
+  { id:'krossatnatur811', name:'Krossat natur', fraction:'8/11 mm', cat:'tradgard', img:null,
+    desc:'Krossat naturgrus för trädgårdsgångar och körytor samt som dränerande fyllning — ger en stabil och relativt jämn yta.' },
+  { id:'krossatnatur816', name:'Krossat natur', fraction:'8/16 mm', cat:'tradgard', img:null,
+    desc:'Mångsidig fraktion för trädgårdsgångar, körytor och uppfarter samt som dränerande fyllnadsmaterial. Tål lätt trafik och slitage bra.' },
+  { id:'krossatnatur1638', name:'Krossat natur', fraction:'16/38 mm', cat:'tradgard', img:'assets/materials-thumbs/krossad-natur16-38.webp',
+    desc:'Grövre krossat naturgrus. Används vid grövre anläggningsarbeten och vid uppbyggnad av körytor som ska tåla högre belastning.' },
+  { id:'natursten', name:'Natursten', fraction:'–', cat:'tradgard', img:null,
+    desc:'Osorterad, blandad naturlig sten. Används som dekorationssten, till kallmurar och stödmurar där naturens egen stenform och variation efterfrågas.' },
+  { id:'anlaggningsjord', name:'Anläggningsjord', fraction:'–', cat:'tradgard', img:null,
+    desc:'Mineralbaserad jord med lägre mullhalt som håller formen över tid. Används vid nyanläggning av gräsmattor, rabatter och grönytor som grund inför plantering.' },
+  { id:'fyllnadsjord', name:'Fyllnadsjord', fraction:'–', cat:'tradgard', img:null,
+    desc:'Enklare och billigare jordmaterial som främst används för att fylla upp och jämna ut markytor i stor volym, t.ex. inför husgrund eller väg.' },
+
+  { id:'samkross011', name:'Samkross', fraction:'0/11 mm', cat:'vag', img:'assets/materials-thumbs/samkross0-11.webp',
+    desc:'Finare samkross. Används som slitlager på grusvägar och gårdsplaner — ger en jämn, körbar yta.' },
+  { id:'samkross016', name:'Samkross', fraction:'0/16 mm', cat:'vag', img:'assets/materials-thumbs/samkross0-16.webp',
+    desc:'Används som slitlager ovanpå ett bärlager, på grusvägar, gångar och uppfarter. Ofta kallat väggrus.' },
+  { id:'samkross032', name:'Samkross (Bärlager)', fraction:'0/32 mm', cat:'vag', img:'assets/materials-thumbs/samkross0-32.webp',
+    desc:'Standardmaterial för bärlager under vägar, uppfarter och parkeringsytor. De kantiga kornen låser sig vid packning och ger hög bärighet.' },
+  { id:'samkross063', name:'Samkross', fraction:'0/63 mm', cat:'vag', img:'assets/materials-thumbs/samkross0-63.webp',
+    desc:'Förstärkningslager som läggs under bärlagret för en stabil grund vid vägar och parkeringsytor, särskilt på mjuk eller ojämn mark.' },
+  { id:'samkross090', name:'Samkross', fraction:'0/90 mm', cat:'vag', img:null,
+    desc:'Grövre förstärkningslager för tyngre belastning — vägar, större planer och uppbyggnad av mark på svag undergrund.' },
+  { id:'samkross0125', name:'Samkross', fraction:'0/125 mm', cat:'vag', img:null,
+    desc:'Grovt förstärkningslager för stora anläggningsarbeten och vägkroppar där stor uppbyggnadshöjd eller tung belastning förekommer.' },
+  { id:'samkross0150', name:'Samkross', fraction:'0/150 mm', cat:'vag', img:null,
+    desc:'Grövsta samkrossfraktionen. Baslager i konstruktioner med stor lagertjocklek — vägbyggen och parkeringsytor — ofta kombinerat med finare material närmare ytan.' },
+  { id:'asfaltskross016', name:'Asfaltskross', fraction:'0/16 mm', cat:'vag', img:'assets/materials-thumbs/asfaltskross0-16.webp',
+    desc:'Återvunnen krossad asfalt. Används som slitlager på grusvägar och som bärlager vid uppfarter och parkeringsytor — miljövänligare och billigare än bergkross.' },
+  { id:'asfaltskross045', name:'Asfaltskross', fraction:'0/45 mm', cat:'vag', img:null,
+    desc:'Grövre återvunnen asfalt. Används som förstärknings- och bärlager vid vägar och parkeringsytor — ett kostnadseffektivt alternativ till nyproducerat bergkross.' },
+
+  { id:'mursand', name:'Mursand', fraction:'0/4 mm', cat:'mur', img:'assets/materials-thumbs/mursand0-4.webp',
+    desc:'Fint siktad natursand, fri från större stenar och föroreningar. Blandas med cement, kalk och vatten till mur- och putsbruk.' },
+  { id:'putssand', name:'Putssand', fraction:'0/2 mm', cat:'mur', img:'assets/materials-thumbs/putssand0-4.webp',
+    desc:'Extra finkornig natursand avsedd för putsbruk där en slät, fin ytfinish krävs. Ger jämn bindning och ett estetiskt resultat vid fasadputsning.' },
+];
+
+/* ============================================================ */
+
+const $ = id => document.getElementById(id);
+let activeCat = 'alla';
+let searchQuery = '';
+let lastFocused = null;
+
+// Söktext per produkt: namn + fraktion + beskrivning + kategorinamn.
+// Kategorinamnet gör att fritextsökning på "grund" eller "väg" hittar
+// rätt produkter även om själva ordet inte står i produktnamnet.
+function searchableText(p){
+  const cat = CATS.find(c => c.id === p.cat);
+  return [p.name, p.fraction, p.desc, cat ? cat.name : ''].join(' ').toLowerCase();
+}
+
+function matchesSearch(p, query){
+  if(!query) return true;
+  const haystack = searchableText(p);
+  return query.trim().toLowerCase().split(/\s+/).every(word => haystack.includes(word));
+}
+
+function renderChips(){
+  const all = [{ id:'alla', name:'Alla' }, ...CATS];
+  $('filter-bar').innerHTML = all.map(c => {
+    const count = c.id === 'alla'
+      ? PRODUCTS.length
+      : PRODUCTS.filter(p => p.cat === c.id).length;
+    return `<button class="chip${c.id === activeCat ? ' active' : ''}" data-cat="${c.id}">${c.name} <span class="count">${count}</span></button>`;
+  }).join('');
+  $('filter-bar').querySelectorAll('.chip').forEach(el =>
+    el.addEventListener('click', () => { activeCat = el.dataset.cat; renderChips(); renderGrid(); }));
+}
+
+function thumbHtml(p, big){
+  const wrap = big ? 'modal-img' : 'thumb';
+  const iconSize = big ? 22 : 16;
+  const label = big ? 'Bild kommer snart' : 'Bild saknas';
+  const hint = big ? '' : '<span class="tap-hint">Klicka här</span>';
+  if(p.img){
+    return `<div class="${wrap}">
+      <img src="${p.img}" alt="${p.name} ${p.fraction}" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="placeholder"><span>&#128247;</span><span>${label}</span></div>
+      ${hint}
+    </div>`;
+  }
+  return `<div class="${wrap}"><div class="placeholder" style="display:flex;"><span style="font-size:${iconSize}px;">&#128247;</span><span>${label}</span></div>${hint}</div>`;
+}
+
+function renderGrid(){
+  const list = PRODUCTS
+    .filter(p => activeCat === 'alla' || p.cat === activeCat)
+    .filter(p => matchesSearch(p, searchQuery));
+
+  $('result-count').textContent = list.length + (list.length === 1 ? ' produkt' : ' produkter');
+  $('empty').textContent = searchQuery
+    ? 'Inga träffar. Prova ett annat sökord, t.ex. grund, väg, mur eller trädgård.'
+    : 'Inga produkter i den här kategorin just nu.';
+  $('empty').classList.toggle('show', list.length === 0);
+
+  $('grid').innerHTML = list.map(p => `
+    <button class="card" data-id="${p.id}">
+      ${thumbHtml(p, false)}
+      <div class="label">
+        <p class="name">${p.name}</p>
+        <p class="frac">${p.fraction}</p>
+      </div>
+    </button>`).join('');
+  $('grid').querySelectorAll('.card').forEach(el =>
+    el.addEventListener('click', () => openModal(el.dataset.id, el)));
+}
+
+function openModal(id, triggerEl){
+  const p = PRODUCTS.find(x => x.id === id);
+  lastFocused = triggerEl || document.activeElement;
+
+  $('modal-img').outerHTML = thumbHtml(p, true).replace('class="modal-img"', 'class="modal-img" id="modal-img"');
+  $('modal-title').textContent = p.name;
+  $('modal-frac').textContent = p.fraction === '–' ? 'Osorterad' : 'Fraktion ' + p.fraction;
+  $('modal-desc').textContent = p.desc;
+
+  const calcUrl = 'prislista.html?material=' + encodeURIComponent(p.name + ' ' + p.fraction) + '#calculator';
+  $('modal-actions').innerHTML = `
+    <a class="btn btn-primary" href="prislista.html">Se pris i prislistan</a>
+    <a class="btn btn-secondary" href="${calcUrl}">Beräkna mängd</a>
+  `;
+
+  $('modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  $('modal-close').focus();
+}
+
+function closeModal(){
+  $('modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastFocused){ lastFocused.focus(); }
+}
+
+$('modal-close').addEventListener('click', closeModal);
+$('modal-backdrop').addEventListener('click', e => { if(e.target.id === 'modal-backdrop'){ closeModal(); } });
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    if($('modal-backdrop').classList.contains('open')){ closeModal(); }
+    else if(document.activeElement === $('search-input') && searchQuery){ $('search-input').value=''; searchQuery=''; renderGrid(); $('search-clear').classList.remove('show'); }
+  }
+});
+
+$('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  $('search-clear').classList.toggle('show', searchQuery.length > 0);
+  renderGrid();
+});
+$('search-clear').addEventListener('click', () => {
+  $('search-input').value = '';
+  searchQuery = '';
+  $('search-clear').classList.remove('show');
+  renderGrid();
+  $('search-input').focus();
+});
+
+renderChips();
+renderGrid();
+</script>
 </body>
 </html>

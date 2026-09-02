@@ -10,6 +10,11 @@
 <meta property="og:description" content="Our official price lists for crushed rock, gravel and winter materials — download as PDF.">
 <meta property="og:image" content="../assets/logo.jpg">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Price List | Eke Grus AB">
+<meta name="twitter:description" content="Our official price lists for crushed rock, gravel and winter materials — download as PDF.">
+<meta name="twitter:image" content="../assets/logo.jpg">
+<link rel="canonical" href="https://www.ekegrus.se/en/price-list.html">
 <link rel="alternate" hreflang="sv" href="https://www.ekegrus.se/prislista.html">
 <link rel="alternate" hreflang="en" href="https://www.ekegrus.se/en/price-list.html">
 <link rel="alternate" hreflang="x-default" href="https://www.ekegrus.se/prislista.html">
@@ -54,6 +59,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="price-list.html" aria-current="page">Price List</a></li>
           <li><a href="materials.html">Materials</a></li>
+          <li><a href="find-material.html">Find Material</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -256,5 +262,33 @@
 </footer>
 
 <script src="../script.js"></script>
+<script>
+// Wait for DOMContentLoaded so script.js's own calculator init (which attaches
+// the #calc-material "change" listener) has already run before we dispatch one.
+// The dropdown options are in Swedish (our price lists are Swedish-only), so the
+// ?material= value passed in from materials.html / find-material.html is also
+// the Swedish name — this just mirrors the matching logic used on the Swedish
+// price list page.
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+  const wanted = params.get('material');
+  if (!wanted) return;
+  const select = document.querySelector('#calc-material');
+  if (!select) return;
+  const wantedNorm = wanted.trim().toLowerCase();
+  const match = Array.from(select.options).find(opt => {
+    const text = opt.textContent.trim().toLowerCase();
+    return text === wantedNorm || wantedNorm.startsWith(text) || text.startsWith(wantedNorm);
+  });
+  if (match) {
+    select.value = match.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  const calcSection = document.getElementById('calculator');
+  if (calcSection) {
+    setTimeout(() => calcSection.scrollIntoView({ behavior: 'smooth' }), 100);
+  }
+});
+</script>
 </body>
 </html>

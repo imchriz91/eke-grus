@@ -1,0 +1,41 @@
+<!--
+  INTEGRATION: klistra in detta script-block strax före </body> på prislista.html.
+
+  Vad det gör:
+  Länkar från hitta-ratt-material.html ser ut så här:
+    prislista.html?material=Makadam%208%2F16%20mm#calculator
+  Det här scriptet läser ?material=... ur URL:en när sidan laddar, hittar
+  matchande alternativ i er befintliga <select> för material i
+  beräkningsverktyget, väljer det automatiskt och scrollar dit.
+
+  OBS: byt ut "SELECTOR_HÄR" nedan mot den faktiska CSS-selektorn för er
+  <select>-tagg i beräkningsverktyget (t.ex. "#material-select" eller
+  "#calculator select" — vad det nu heter i er kod).
+-->
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const wanted = params.get('material');
+  if (!wanted) return;
+
+  const select = document.querySelector('SELECTOR_HÄR');
+  if (!select) return;
+
+  // Matchar på synlig text i dropdownen, t.ex. "Makadam 8/16 mm" mot "Makadam 8/16"
+  const wantedNorm = wanted.trim().toLowerCase();
+  const match = Array.from(select.options).find(opt => {
+    const text = opt.textContent.trim().toLowerCase();
+    return text === wantedNorm || wantedNorm.startsWith(text) || text.startsWith(wantedNorm);
+  });
+
+  if (match) {
+    select.value = match.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  const calcSection = document.getElementById('calculator');
+  if (calcSection) {
+    setTimeout(() => calcSection.scrollIntoView({ behavior: 'smooth' }), 100);
+  }
+})();
+</script>
